@@ -11,12 +11,33 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.SearchController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.SearchController">
    <children>
-      <VBox prefHeight="600.0" prefWidth="149.0">
+      <VBox alignment="TOP_RIGHT" prefHeight="600.0" prefWidth="150.0">
          <children>
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="123.0" text="Date" />
-            <DatePicker />
+            <Label alignment="CENTER" prefWidth="150.0" text="Date" />
+            <HBox prefHeight="30.0" prefWidth="142.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="35.0" text="From" />
+                  <DatePicker fx:id="fxDateFrom" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="107.0" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="TOP_RIGHT" prefHeight="30.0" prefWidth="142.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="35.0" text="To" />
+                  <DatePicker fx:id="fxDateTo" prefHeight="30.0" prefWidth="108.0">
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </DatePicker>
+               </children>
+            </HBox>
             <Label alignment="CENTER" prefHeight="17.0" prefWidth="123.0" text="Price">
                <VBox.margin>
                   <Insets top="10.0" />
