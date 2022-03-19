@@ -36,6 +36,12 @@ public class SearchController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        DB databaseTest = new DB();
+        try {
+            databaseTest.tengjastDB();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
