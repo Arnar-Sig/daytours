@@ -15,10 +15,11 @@ public class DB {
             {
                 conn = DriverManager.getConnection("jdbc:sqlite:src/sample/DayTours.db");
                 Statement statement = conn.createStatement();
-                statement.execute("DROP TABLE IF EXISTS R");
-                statement.execute("CREATE TABLE R(key INTEGER PRIMARY KEY, value DOUBLE)");
                 System.out.println("Virðist hafa tengst við gagnagrunn!");
-
+                ResultSet r = statement.executeQuery("SELECT * FROM DayTours");
+                while(r.next() != false){
+                    System.out.println(r.getString(1));
+                }
             }
             catch(SQLException e)
             {
