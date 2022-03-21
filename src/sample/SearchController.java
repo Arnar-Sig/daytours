@@ -43,17 +43,6 @@ public class SearchController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         databaseConnection = new DB();
-        Date fra = new Date(122, 4, 1);
-        Date til = new Date(122, 4, 5);
-        SearchModel sm = new SearchModel("Keilir", 0,
-                300, 0, 5, "Gonguferd",
-                0, 10000, 1, fra,
-                til, false);
-        try {
-            databaseConnection.searchDatabase(sm);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         /*
         try {
             databaseTest.tengjastDB();
@@ -68,12 +57,18 @@ public class SearchController implements Initializable {
     public void searchButton(ActionEvent actionEvent) {
         dt = new DayTours(1);
         // To-do: Tengja breytur í searchmodelinu við fxHlutina.
+
         Date fra = new Date(122, 4, 1);
         Date til = new Date(122, 4, 5);
-
-        SearchModel sm = new SearchModel("Úlfarsfell", 0,
-                300, 0, 5, "Gönguferð",
-                0, 10000, 5, fra, til, false);
+        SearchModel sm = new SearchModel("Keilir", 0,
+                300, 0, 5, "Gonguferd",
+                0, 10000, 1, fra,
+                til, false);
+        try {
+            databaseConnection.searchDayTours(sm);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         dt.updateSearchModel(sm);
         //"2022-04-03 17:00:000"
     }

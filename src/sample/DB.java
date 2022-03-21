@@ -3,7 +3,7 @@ package sample;
 import java.sql.*;
 
 public class DB {
-    public void searchDatabase(SearchModel sm) throws Exception {
+    public void searchDayTours(SearchModel sm) throws Exception {
         {
             Class.forName("org.sqlite.JDBC");
             Connection conn = null;
@@ -11,7 +11,6 @@ public class DB {
             {
                 conn = DriverManager.getConnection("jdbc:sqlite:src/sample/DayTours.db");
                 Statement statement = conn.createStatement();
-                System.out.println("Virðist hafa tengst við gagnagrunn!");
                 /*
                 String sqlSkipun = "SELECT * FROM DayTours WHERE day BETWEEN " + sm.getDateFrom() + " AND " + sm.getDateTo()
                         + " AND price BETWEEN " + "sm.getPriceMin()" + " AND " + sm.getPriceMax()
@@ -28,7 +27,7 @@ public class DB {
                         + " AND duration BETWEEN " + sm.getDurationMin() + " AND " + sm.getDurationMax();
 
 
-                System.out.println(sqlSkipun);
+                //System.out.println(sqlSkipun);
                 //ResultSet r = statement.executeQuery("SELECT * FROM DayTours");
                 ResultSet r = statement.executeQuery(sqlSkipun);
                 ResultSetMetaData rm = r.getMetaData();
