@@ -1,7 +1,10 @@
 package sample;
 
 import java.net.URL;
+import java.sql.Date;
 import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -33,15 +36,46 @@ public class SearchController implements Initializable {
     @FXML
     private ChoiceBox fxSortBy;
 
+    // geymslubreytur
+    private DB databaseConnection;
+    private DayTours dt;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        DB databaseTest = new DB();
+        databaseConnection = new DB();
+        Date fra = new Date(122, 4, 1);
+        Date til = new Date(122, 4, 5);
+        SearchModel sm = new SearchModel("Keilir", 0,
+                300, 0, 5, "Gonguferd",
+                0, 10000, 1, fra,
+                til, false);
+        try {
+            databaseConnection.searchDatabase(sm);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        /*
         try {
             databaseTest.tengjastDB();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+         */
+
     }
 
+    public void searchButton(ActionEvent actionEvent) {
+        dt = new DayTours(1);
+        // To-do: Tengja breytur í searchmodelinu við fxHlutina.
+        Date fra = new Date(122, 4, 1);
+        Date til = new Date(122, 4, 5);
+
+        SearchModel sm = new SearchModel("Úlfarsfell", 0,
+                300, 0, 5, "Gönguferð",
+                0, 10000, 5, fra, til, false);
+        dt.updateSearchModel(sm);
+        //"2022-04-03 17:00:000"
+    }
 }
+
