@@ -1,12 +1,16 @@
 package sample;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DB {
-    public void searchDayTours(SearchModel sm) throws Exception {
-        {
+    public ArrayList<String> searchDayTours(SearchModel sm) throws Exception {
+            // TO-do: láta fallið skila hlut af DayTours með öllu útfylltu
+            //        (þarf að ná í gögn úr Participants gagnagrunni t.d.)
+
             Class.forName("org.sqlite.JDBC");
             Connection conn = null;
+            ArrayList<String> fylkiAfRodum = new ArrayList<String>();
             try
             {
                 conn = DriverManager.getConnection("jdbc:sqlite:src/sample/DayTours.db");
@@ -20,6 +24,8 @@ public class DB {
                         + " AND duration BETWEEN " + sm.getDurationMin() + " AND " + sm.getDurationMax();
 
                  */
+
+
                 String sqlSkipun = "SELECT * FROM DayTours WHERE price BETWEEN " + sm.getPriceMin() + " AND " + sm.getPriceMax()
                         + " AND location = " + '"' +  sm.getLocation() + '"' + " AND spots >= " + sm.getMinSpotsLeft()
                         + " AND activityType = " + '"' + sm.getActivityType() + '"' + " AND activityDifficulty BETWEEN " + sm.getActivityDifficultyMin()
@@ -32,13 +38,16 @@ public class DB {
                 ResultSet r = statement.executeQuery(sqlSkipun);
                 ResultSetMetaData rm = r.getMetaData();
                 int colCount = rm.getColumnCount();
+                //ArrayList<String> fylkiAfRodum = new ArrayList<String>();
                 while(r.next()){
                     String rod = "";
                     for (int i = 1; i <= colCount; i++) {
                         rod += r.getString(i) + ", ";
                     }
                     System.out.println(rod);
+                    fylkiAfRodum.add(rod);
                 }
+                return fylkiAfRodum;
             }
             catch(SQLException e)
             {
@@ -55,6 +64,6 @@ public class DB {
                     System.err.println(e);
                 }
             }
-        }
+            return fylkiAfRodum;
     }
 }

@@ -2,6 +2,7 @@ package sample;
 
 import java.net.URL;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -18,6 +19,8 @@ public class SearchController implements Initializable {
 
     @FXML
     public TextField fxSpotsLeft;
+    @FXML
+    public ListView fxListView;
     @FXML
     private DatePicker fxDate;
     @FXML
@@ -69,7 +72,7 @@ public class SearchController implements Initializable {
 
     public void searchButton(ActionEvent actionEvent) {
         dt = new DayTours(1);
-        // To-do: Tengja breytur í searchmodelinu við fxHlutina.
+        // To-do:
         //        Ná í öll activities í fylki, ekki bara checkbox1
         //        Laga Date þannig að það nái í dagsetningu úr viðmótshlut
 
@@ -89,7 +92,12 @@ public class SearchController implements Initializable {
                 til, false);
         */
         try {
-            databaseConnection.searchDayTours(sm);
+            ArrayList<String> utkoma = databaseConnection.searchDayTours(sm);
+            for(int i=0; i< utkoma.size(); i++){
+                fxListView.getItems().add(utkoma);
+            }
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
