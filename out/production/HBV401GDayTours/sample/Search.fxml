@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.TilePane?>
@@ -50,7 +51,7 @@
             </Label>
             <TextField fx:id="fxMinDuration" promptText="Min duration" />
             <TextField fx:id="fxMaxDuration" promptText="Max duration" />
-            <Label alignment="CENTER" contentDisplay="CENTER" text="Pláss eftir" textAlignment="CENTER" />
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Spots left" textAlignment="JUSTIFY" />
             <TextField fx:id="fxSpotsLeft" promptText="Spots left" />
             <Label alignment="CENTER" prefHeight="17.0" prefWidth="123.0" text="Hotel pickup">
                <VBox.margin>
@@ -60,7 +61,14 @@
             <CheckBox fx:id="fxHotelPickup" mnemonicParsing="false" prefHeight="17.0" prefWidth="129.0" text="CheckBox" />
          </children>
       </VBox>
-      <TilePane prefHeight="600.0" prefWidth="555.0" />
+      <TilePane prefHeight="600.0" prefWidth="555.0">
+         <children>
+            <ListView fx:id="fxListView" prefHeight="456.0" prefWidth="470.0" TilePane.alignment="CENTER">
+               <TilePane.margin>
+                  <Insets left="40.0" top="40.0" />
+               </TilePane.margin>
+            </ListView>
+         </children></TilePane>
       <VBox prefHeight="600.0" prefWidth="126.0">
          <children>
             <Label alignment="CENTER" prefHeight="17.0" prefWidth="92.0" text="Sort by" />
