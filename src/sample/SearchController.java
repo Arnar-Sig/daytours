@@ -7,10 +7,8 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Slider;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+
 /***********************************************************
  * Lýsing:
  *
@@ -19,22 +17,37 @@ import javafx.scene.control.Label;
 public class SearchController implements Initializable {
 
     @FXML
-    private Slider fxPrice;
-
+    public TextField fxSpotsLeft;
     @FXML
-    private Slider fxDifficulty;
-
+    private DatePicker fxDate;
     @FXML
-    private Slider fxDuration;
-
+    private TextField fxLocation;
     @FXML
-    private Label fxPriceText;
-
+    private TextField fxMinimumPrice;
     @FXML
-    private Button fxBook;
-
+    private TextField fxMaximumPrice;
     @FXML
-    private ChoiceBox fxSortBy;
+    private TextField fxMinDifficulty;
+    @FXML
+    private TextField fxMaxDifficulty;
+    @FXML
+    private TextField fxMinDuration;
+    @FXML
+    private TextField fxMaxDuration;
+    @FXML
+    private CheckBox fxHotelPickup;
+    @FXML
+    private CheckBox fxActivities1;
+    @FXML
+    private CheckBox fxActivities2;
+    @FXML
+    private CheckBox fxActivities3;
+    @FXML
+    private CheckBox fxActivities4;
+    @FXML
+    private CheckBox fxActivities5;
+
+
 
     // geymslubreytur
     private DB databaseConnection;
@@ -57,13 +70,24 @@ public class SearchController implements Initializable {
     public void searchButton(ActionEvent actionEvent) {
         dt = new DayTours(1);
         // To-do: Tengja breytur í searchmodelinu við fxHlutina.
+        //        Ná í öll activities í fylki, ekki bara checkbox1
+        //        Laga Date þannig að það nái í dagsetningu úr viðmótshlut
 
+        Date fra = new Date(122, 4, 1);
+        Date til = new Date(122, 4, 5);
+        SearchModel sm = new SearchModel(fxLocation.getText(), Integer.parseInt(fxMinDuration.getText()), Integer.parseInt(fxMaxDuration.getText()),
+                 Integer.parseInt(fxMinDifficulty.getText()), Integer.parseInt(fxMaxDifficulty.getText()), fxActivities1.getText(), Integer.parseInt(fxMinimumPrice.getText()),
+                 Integer.parseInt(fxMaximumPrice.getText()), Integer.parseInt(fxSpotsLeft.getText()), fra, til, fxHotelPickup.isSelected());
+
+        /*
+        //SEARCHMODEL DÆMI SEM VIRKAR
         Date fra = new Date(122, 4, 1);
         Date til = new Date(122, 4, 5);
         SearchModel sm = new SearchModel("Keilir", 0,
                 300, 0, 5, "Gonguferd",
                 0, 10000, 1, fra,
                 til, false);
+        */
         try {
             databaseConnection.searchDayTours(sm);
         } catch (Exception e) {
