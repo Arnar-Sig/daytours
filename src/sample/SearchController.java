@@ -50,8 +50,6 @@ public class SearchController implements Initializable {
     @FXML
     private CheckBox fxActivities5;
 
-
-
     // geymslubreytur
     private DB databaseConnection;
     private DayTours dt;
