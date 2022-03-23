@@ -13,7 +13,7 @@ public class DB {
             ArrayList<String> fylkiAfRodum = new ArrayList<String>();
             try
             {
-                conn = DriverManager.getConnection("jdbc:sqlite:src\\main\\java\\sample\\daytoursnyttsdk\\DayTours.db");
+                conn = DriverManager.getConnection("jdbc:sqlite:src/main/java/sample/daytoursnyttsdk/DayTours.db");
                 Statement statement = conn.createStatement();
                 /*
                 String sqlSkipun = "SELECT * FROM DayTours WHERE day BETWEEN " + sm.getDateFrom() + " AND " + sm.getDateTo()

@@ -22,4 +22,10 @@
 hs_err_pid*
 
 # .idea filesl #
+.idea/workspace.xml
+.idea/uiDesigner.xml
+.idea/gradle.xml
+.idea/modules.xml
 
+# gradle files #
+.gradle/
