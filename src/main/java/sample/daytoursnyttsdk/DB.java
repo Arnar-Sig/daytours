@@ -10,7 +10,7 @@ public class DB {
 
             Class.forName("org.sqlite.JDBC");
             Connection conn = null;
-            ArrayList<String> fylkiAfRodum = new ArrayList<String>();
+            ArrayList<String> fylkiAfRodum = new ArrayList<>();
             try
             {
                 conn = DriverManager.getConnection("jdbc:sqlite:src/main/java/sample/daytoursnyttsdk/DayTours.db");

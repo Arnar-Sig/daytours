@@ -65,6 +65,20 @@ public class SearchController implements Initializable {
         }
 
          */
+        /* TEST KÓÐI
+        Date fra = new Date(122, 4, 1);
+        Date til = new Date(122, 4, 5);
+        SearchModel sm = new SearchModel("Keilir", 0,
+                300, 0, 5, "Gonguferd",
+                0, 10000, 1, fra,
+                til, false);
+        dt = new DayTours(1);
+        ArrayList<DayTour> ut = dt.getDayTours(sm);
+        for(DayTour x : ut){
+            System.out.println(x);
+        }
+         */
+
 
     }
 
