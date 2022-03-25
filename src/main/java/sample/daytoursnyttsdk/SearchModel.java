@@ -1,6 +1,7 @@
 package sample.daytoursnyttsdk;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class SearchModel {
     public String getLocation() {
@@ -39,11 +40,11 @@ public class SearchModel {
         return minSpotsLeft;
     }
 
-    public Date getDateFrom() {
+    public LocalDate getDateFrom() {
         return dateFrom;
     }
 
-    public Date getDateTo() {
+    public LocalDate getDateTo() {
         return dateTo;
     }
 
@@ -60,12 +61,12 @@ public class SearchModel {
     private int priceMin;
     private int priceMax;
     private int minSpotsLeft;
-    private Date dateFrom;
-    private Date dateTo;
+    private LocalDate dateFrom;
+    private LocalDate dateTo;
     private boolean hotelPickUp;
 
     public SearchModel(String loc, int durMin, int durMax, int actMin, int actMax, String actType, int verdMin, int verdMax,
-                       int plassEftir, Date dagsFra, Date dagsTil, boolean hotel){
+                       int plassEftir, LocalDate dagsFra, LocalDate dagsTil, boolean hotel){
         location = loc;
         durationMin = durMin;
         durationMax = durMax;

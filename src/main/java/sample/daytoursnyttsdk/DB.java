@@ -30,8 +30,8 @@ public class DB {
                         + " AND location = " + '"' +  sm.getLocation() + '"' + " AND spots >= " + sm.getMinSpotsLeft()
                         + " AND activityType = " + '"' + sm.getActivityType() + '"' + " AND activityDifficulty BETWEEN " + sm.getActivityDifficultyMin()
                         + " AND " + sm.getActivityDifficultyMax() + " AND hotelPickUp = " + sm.isHotelPickUp()
-                        + " AND duration BETWEEN " + sm.getDurationMin() + " AND " + sm.getDurationMax();
-
+                        + " AND duration BETWEEN " + sm.getDurationMin() + " AND " + sm.getDurationMax()
+                        + " AND day BETWEEN " + '"' + sm.getDateFrom() + '"' + " AND " + '"' + sm.getDateTo() + '"';
 
                 //System.out.println(sqlSkipun);
                 //ResultSet r = statement.executeQuery("SELECT * FROM DayTours");
@@ -44,7 +44,7 @@ public class DB {
                     for (int i = 1; i <= colCount; i++) {
                         rod += r.getString(i) + ", ";
                     }
-                    System.out.println(rod);
+                    //System.out.println(rod);
                     fylkiAfRodum.add(rod);
                 }
                 return fylkiAfRodum;

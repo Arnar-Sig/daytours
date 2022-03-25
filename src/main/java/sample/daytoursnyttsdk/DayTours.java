@@ -2,6 +2,7 @@ package sample.daytoursnyttsdk;
 
 import java.lang.reflect.Array;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +21,12 @@ public class DayTours {
         searchModel = sm;
     }
 
+
+    // TO-DO: Nota LocalDate hlut til að deala við dagsetningar eins og í Searchcontrollernum
+    /**
+     * @param sm = SearchModel hlutur sem inniheldur þau gögn sem leita á eftir í gagnagrunni.
+     * @return ArrayList<DayTour> fylki af DayTour hlutum sem fundust í gagnagrunni.
+     */
     public ArrayList<DayTour> getDayTours(SearchModel sm){
         ArrayList<String> m = new ArrayList<String>();
         ArrayList<DayTour> utkoma = new ArrayList<DayTour>();
@@ -40,10 +47,9 @@ public class DayTours {
             Participant dummy = new Participant("test", "test", "test", "test", 5);
             Participant[] dummyFylki = new Participant[1];
             dummyFylki[0] = dummy;
-            Date dummyDate = new Date(122, 4, 1);
+            Date dummyDate = new Date(122241);
             //TEMP gervigögn
-
-
+            
             DayTour temp = new DayTour(list.get(0), list.get(3), Integer.parseInt(list.get(8)), dummyDate,
                     Integer.parseInt(list.get(4)), Integer.parseInt(list.get(2)), list.get(5), Integer.parseInt(list.get(6)),
                     Integer.parseInt(list.get(7)), dummyFylki );

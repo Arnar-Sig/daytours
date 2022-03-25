@@ -17,9 +17,10 @@
       <VBox prefHeight="600.0" prefWidth="149.0">
          <children>
             <Label alignment="CENTER" prefHeight="17.0" prefWidth="123.0" text="Date" />
-            <DatePicker fx:id="fxDate" />
+            <DatePicker fx:id="fxDateFrom" prefHeight="25.0" prefWidth="141.0" promptText="Date From" />
+            <DatePicker fx:id="fxDateTo" prefHeight="25.0" prefWidth="141.0" promptText="Date To" />
             <Label alignment="CENTER_RIGHT" text="Location" textAlignment="JUSTIFY" VBox.vgrow="NEVER" />
-            <TextField fx:id="fxLocation" promptText="location" />
+            <TextField fx:id="fxLocation" promptText="Location" />
             <Label alignment="CENTER" prefHeight="17.0" prefWidth="123.0" text="Price">
                <VBox.margin>
                   <Insets top="10.0" />

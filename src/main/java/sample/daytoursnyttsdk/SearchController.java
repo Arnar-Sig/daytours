@@ -2,6 +2,7 @@ package sample.daytoursnyttsdk;
 
 import java.net.URL;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -18,11 +19,13 @@ import javafx.scene.control.*;
 public class SearchController implements Initializable {
 
     @FXML
-    public TextField fxSpotsLeft;
+    private TextField fxSpotsLeft;
     @FXML
-    public ListView fxListView;
+    private ListView fxListView;
     @FXML
-    private DatePicker fxDate;
+    private DatePicker fxDateFrom;
+    @FXML
+    private DatePicker fxDateTo;
     @FXML
     private TextField fxLocation;
     @FXML
@@ -65,17 +68,24 @@ public class SearchController implements Initializable {
         }
 
          */
-        /* TEST KÓÐI
-        Date fra = new Date(122, 4, 1);
-        Date til = new Date(122, 4, 5);
+        /*
+        LocalDate u = LocalDate.now();
+        System.out.println(u);
+
+         */
+
+        /*
+        //TEST KÓÐI FYRIR LEIT I GAGNAGRUNNI AN VIDMOTS
+        Date fra = new Date(122, 2, 1);
+        Date til = new Date(122, 8, 5);
         SearchModel sm = new SearchModel("Keilir", 0,
                 300, 0, 5, "Gonguferd",
-                0, 10000, 1, fra,
-                til, false);
+                0, 10000, 1, LocalDate.of(2022, 2, 1),
+                LocalDate.of(2022, 6, 1), false);
         dt = new DayTours(1);
         ArrayList<DayTour> ut = dt.getDayTours(sm);
         for(DayTour x : ut){
-            System.out.println(x);
+            System.out.println(x.getTourName());
         }
          */
 
@@ -87,12 +97,18 @@ public class SearchController implements Initializable {
         // To-do:
         //        Ná í öll activities í fylki, ekki bara checkbox1
         //        Laga Date þannig að það nái í dagsetningu úr viðmótshlut
-
+        /*
         Date fra = new Date(122, 4, 1);
         Date til = new Date(122, 4, 5);
+         */
+
         SearchModel sm = new SearchModel(fxLocation.getText(), Integer.parseInt(fxMinDuration.getText()), Integer.parseInt(fxMaxDuration.getText()),
-                 Integer.parseInt(fxMinDifficulty.getText()), Integer.parseInt(fxMaxDifficulty.getText()), fxActivities1.getText(), Integer.parseInt(fxMinimumPrice.getText()),
-                 Integer.parseInt(fxMaximumPrice.getText()), Integer.parseInt(fxSpotsLeft.getText()), fra, til, fxHotelPickup.isSelected());
+                Integer.parseInt(fxMinDifficulty.getText()), Integer.parseInt(fxMaxDifficulty.getText()), fxActivities1.getText(),
+                Integer.parseInt(fxMinimumPrice.getText()), Integer.parseInt(fxMaximumPrice.getText()),
+                Integer.parseInt(fxSpotsLeft.getText()), fxDateFrom.getValue(),
+                fxDateTo.getValue(), fxHotelPickup.isSelected());
+        //System.out.println(fxDateFrom.getValue());
+        //System.out.println(fxDateTo.getValue());
 
         /*
         //SEARCHMODEL DÆMI SEM VIRKAR
@@ -114,7 +130,7 @@ public class SearchController implements Initializable {
             e.printStackTrace();
         }
         dt.updateSearchModel(sm);
-        //"2022-04-03 17:00:000"
+
     }
 }
 
