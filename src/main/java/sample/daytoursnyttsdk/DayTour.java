@@ -1,6 +1,7 @@
 package sample.daytoursnyttsdk;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class DayTour {
     public String getTourName() {
@@ -15,7 +16,7 @@ public class DayTour {
         return duration;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -46,7 +47,7 @@ public class DayTour {
     private String tourName;
     private String location;
     private int duration;
-    private Date date;
+    private LocalDate date;
     private int spotsLeft;
     private int price;
     private String activityType;
@@ -54,7 +55,7 @@ public class DayTour {
     private int hotelPickUp;
     private Participant[] participants;
 
-    public DayTour(String nafn, String loc, int dur, Date dags, int plassEftir, int verd, String type, int erfidleikastig,
+    public DayTour(String nafn, String loc, int dur, LocalDate dags, int plassEftir, int verd, String type, int erfidleikastig,
                    int pickup, Participant[] medlimir){
         tourName = nafn;
         location = loc;

@@ -16,11 +16,9 @@
       <change beforePath="$PROJECT_DIR$/build/libs/DayTours-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/DayTours-1.0-SNAPSHOT.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/resources/main/sample/daytoursnyttsdk/Search.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/sample/daytoursnyttsdk/Search.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/daytoursnyttsdk/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/daytoursnyttsdk/DB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/daytoursnyttsdk/DayTours.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/daytoursnyttsdk/DayTours.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sample/daytoursnyttsdk/DayTour.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/daytoursnyttsdk/DayTour.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sample/daytoursnyttsdk/DayTours.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/daytoursnyttsdk/DayTours.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sample/daytoursnyttsdk/SearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/daytoursnyttsdk/SearchController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/daytoursnyttsdk/SearchModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/daytoursnyttsdk/SearchModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/sample/daytoursnyttsdk/Search.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sample/daytoursnyttsdk/Search.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

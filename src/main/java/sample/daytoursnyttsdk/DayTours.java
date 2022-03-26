@@ -10,19 +10,21 @@ import java.util.List;
 public class DayTours {
     DayTour dayTour[];
     SearchModel searchModel;
-    int sort;
+    String sort;
 
-    public DayTours(int rodun){
+
+    public DayTours(String rodun){
         sort = rodun;
 
     }
 
+    /**
+     * @param sm SearchModel hlutur sem inniheldur þau gögn sem leita á eftir í gagnagrunni.
+     */
     public void updateSearchModel(SearchModel sm){
         searchModel = sm;
     }
 
-
-    // TO-DO: Nota LocalDate hlut til að deala við dagsetningar eins og í Searchcontrollernum
     /**
      * @param sm = SearchModel hlutur sem inniheldur þau gögn sem leita á eftir í gagnagrunni.
      * @return ArrayList<DayTour> fylki af DayTour hlutum sem fundust í gagnagrunni.
@@ -47,10 +49,9 @@ public class DayTours {
             Participant dummy = new Participant("test", "test", "test", "test", 5);
             Participant[] dummyFylki = new Participant[1];
             dummyFylki[0] = dummy;
-            Date dummyDate = new Date(122241);
             //TEMP gervigögn
-            
-            DayTour temp = new DayTour(list.get(0), list.get(3), Integer.parseInt(list.get(8)), dummyDate,
+
+            DayTour temp = new DayTour(list.get(0), list.get(3), Integer.parseInt(list.get(8)), LocalDate.parse(list.get(1)),
                     Integer.parseInt(list.get(4)), Integer.parseInt(list.get(2)), list.get(5), Integer.parseInt(list.get(6)),
                     Integer.parseInt(list.get(7)), dummyFylki );
             utkoma.add(temp);
