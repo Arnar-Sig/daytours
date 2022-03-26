@@ -53,8 +53,9 @@ public class DB {
                         + " AND " + sm.getActivityDifficultyMax() + " AND hotelPickUp = " + sm.isHotelPickUp()
                         + " AND duration BETWEEN " + sm.getDurationMin() + " AND " + sm.getDurationMax()
                         + " AND day BETWEEN " + '"' + sm.getDateFrom() + '"' + " AND " + '"' + sm.getDateTo() + '"';
+                 //System.out.println(sqlSkipun);
                  */
-                //System.out.println(sqlSkipun);
+
 
                 /** Náð í gögn frá gagnagrunni og sett í fylki **/
                 ResultSet r = statement.executeQuery(sqlSkipun);
