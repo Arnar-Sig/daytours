@@ -1,6 +1,7 @@
 package sample.daytoursnyttsdk;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class DB {
@@ -25,36 +26,62 @@ public class DB {
 
                  */
 
+                /** Útbúa part af SQL-skipun sem sér um activityTypes **/
+                String activityTypeStrengur = "";
+                int first = 0;
+                for(int i= 0; i<sm.getActivityType().size(); i++){
+                    if(first == 0){
+                        activityTypeStrengur = activityTypeStrengur + "activityType = " + '"' + sm.getActivityType().get(i) + '"';
+                        first = 1;
+                        continue;
+                    }
+                    activityTypeStrengur = activityTypeStrengur + " OR " +  "activityType = " + '"' + sm.getActivityType().get(i) + '"';
+                }
 
+                /** SQL-skipunin sem notuð verður til að ná í gögn frá gagnagrunni **/
+                String sqlSkipun = "SELECT * FROM DayTours WHERE price BETWEEN " + sm.getPriceMin() + " AND " + sm.getPriceMax()
+                        + " AND location = " + '"' +  sm.getLocation() + '"' + " AND spots >= " + sm.getMinSpotsLeft()
+                        + " AND (" + activityTypeStrengur + ") AND " + "activityDifficulty BETWEEN " + sm.getActivityDifficultyMin()
+                        + " AND " + sm.getActivityDifficultyMax() + " AND hotelPickUp = " + sm.isHotelPickUp()
+                        + " AND duration BETWEEN " + sm.getDurationMin() + " AND " + sm.getDurationMax();
+                        //+ " AND day BETWEEN " + '"' + sm.getDateFrom() + '"' + " AND " + '"' + sm.getDateTo() + '"';
+                /*
+                // GAMLA sqlSkipun
                 String sqlSkipun = "SELECT * FROM DayTours WHERE price BETWEEN " + sm.getPriceMin() + " AND " + sm.getPriceMax()
                         + " AND location = " + '"' +  sm.getLocation() + '"' + " AND spots >= " + sm.getMinSpotsLeft()
                         + " AND activityType = " + '"' + sm.getActivityType() + '"' + " AND activityDifficulty BETWEEN " + sm.getActivityDifficultyMin()
                         + " AND " + sm.getActivityDifficultyMax() + " AND hotelPickUp = " + sm.isHotelPickUp()
                         + " AND duration BETWEEN " + sm.getDurationMin() + " AND " + sm.getDurationMax()
                         + " AND day BETWEEN " + '"' + sm.getDateFrom() + '"' + " AND " + '"' + sm.getDateTo() + '"';
-
+                 */
                 //System.out.println(sqlSkipun);
-                //ResultSet r = statement.executeQuery("SELECT * FROM DayTours");
+
+                /** Náð í gögn frá gagnagrunni og sett í fylki **/
                 ResultSet r = statement.executeQuery(sqlSkipun);
                 ResultSetMetaData rm = r.getMetaData();
                 int colCount = rm.getColumnCount();
-                //ArrayList<String> fylkiAfRodum = new ArrayList<String>();
                 while(r.next()){
+                    if(!((LocalDate.parse(r.getString(2)).isAfter(sm.getDateFrom()) ||
+                            LocalDate.parse(r.getString(2)).isEqual(sm.getDateFrom())) &&
+                            (LocalDate.parse(r.getString(2)).isBefore(sm.getDateTo()) ||
+                                    LocalDate.parse(r.getString(2)).isEqual(sm.getDateTo())))) {
+                        continue;
+                    }
                     String rod = "";
                     for (int i = 1; i <= colCount; i++) {
                         rod += r.getString(i) + ", ";
                     }
+
                     //System.out.println(rod);
                     fylkiAfRodum.add(rod);
                 }
                 return fylkiAfRodum;
+
             }
-            catch(SQLException e)
-            {
+            catch(SQLException e){
                 System.err.println(e.getMessage());
             }
-            finally
-            {
+            finally{
                 try
                 {
                     if(conn != null) conn.close();

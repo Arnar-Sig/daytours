@@ -37,11 +37,11 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <CheckBox fx:id="fxActivities1" mnemonicParsing="false" prefHeight="17.0" prefWidth="129.0" text="Gonguferd" />
+            <CheckBox fx:id="fxActivities0" mnemonicParsing="false" prefHeight="17.0" prefWidth="129.0" text="Gonguferd" />
+            <CheckBox fx:id="fxActivities1" mnemonicParsing="false" text="Hjolaferd" />
             <CheckBox fx:id="fxActivities2" mnemonicParsing="false" text="CheckBox" />
             <CheckBox fx:id="fxActivities3" mnemonicParsing="false" text="CheckBox" />
             <CheckBox fx:id="fxActivities4" mnemonicParsing="false" text="CheckBox" />
-            <CheckBox fx:id="fxActivities5" mnemonicParsing="false" text="CheckBox" />
             <Label alignment="CENTER" prefHeight="17.0" prefWidth="123.0" text="Difficulty">
                <VBox.margin>
                   <Insets top="10.0" />

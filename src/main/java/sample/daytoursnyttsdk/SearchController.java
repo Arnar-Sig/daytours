@@ -1,7 +1,6 @@
 package sample.daytoursnyttsdk;
 
 import java.net.URL;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -46,6 +45,8 @@ public class SearchController implements Initializable {
     @FXML
     private CheckBox fxHotelPickup;
     @FXML
+    private CheckBox fxActivities0;
+    @FXML
     private CheckBox fxActivities1;
     @FXML
     private CheckBox fxActivities2;
@@ -53,8 +54,6 @@ public class SearchController implements Initializable {
     private CheckBox fxActivities3;
     @FXML
     private CheckBox fxActivities4;
-    @FXML
-    private CheckBox fxActivities5;
 
     // geymslubreytur
     private DB databaseConnection;
@@ -69,11 +68,6 @@ public class SearchController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-         */
-        /*
-        LocalDate u = LocalDate.now();
-        System.out.println(u);
 
          */
 
@@ -102,36 +96,39 @@ public class SearchController implements Initializable {
             sorting = "Name";
         }
         dt = new DayTours(sorting);
-        /*
-        // To-do:
-        //        Ná í öll activities í fylki, ekki bara checkbox1
-        //        Laga Date þannig að það nái í dagsetningu úr viðmótshlut
-        Date fra = new Date(122, 4, 1);
-        Date til = new Date(122, 4, 5);
-         */
+
+        /** Ná í öll activities yfir í fylki **/
+        CheckBox[] box = {fxActivities0, fxActivities1, fxActivities2, fxActivities3, fxActivities4};
+        ArrayList<String> activities = new ArrayList<>();
+        for(int i = 0; i < 5; i++){
+            if(box[i].isSelected()){
+                activities.add(box[i].getText());
+            }
+        }
 
         /** Búa til SearchModel út frá viðmótinu **/
+        /*
+        //Oþarfi?
+        String dateFromString = fxDateFrom.getValue().toString();
+        System.out.println(dateFromString);
+        String[] temp = dateFromString.split("-");
+        LocalDate rettDateFrom = LocalDate.of(Integer.parseInt(temp[0]),Integer.parseInt(temp[1]), Integer.parseInt(temp[2]));
+        System.out.println(rettDateFrom);
+         */
+
+
         SearchModel sm = new SearchModel(fxLocation.getText(), Integer.parseInt(fxMinDuration.getText()), Integer.parseInt(fxMaxDuration.getText()),
-                Integer.parseInt(fxMinDifficulty.getText()), Integer.parseInt(fxMaxDifficulty.getText()), fxActivities1.getText(),
+                Integer.parseInt(fxMinDifficulty.getText()), Integer.parseInt(fxMaxDifficulty.getText()), activities,
                 Integer.parseInt(fxMinimumPrice.getText()), Integer.parseInt(fxMaximumPrice.getText()),
                 Integer.parseInt(fxSpotsLeft.getText()), fxDateFrom.getValue(),
                 fxDateTo.getValue(), fxHotelPickup.isSelected());
-        /*
-        //SEARCHMODEL DÆMI SEM VIRKAR
-        Date fra = new Date(122, 4, 1);
-        Date til = new Date(122, 4, 5);
-        SearchModel sm = new SearchModel("Keilir", 0,
-                300, 0, 5, "Gonguferd",
-                0, 10000, 1, fra,
-                til, false);
-        */
 
         try {
             /** Kalla á leitarfallið og uppfæra ListView **/
             ArrayList<String> utkoma = databaseConnection.searchDayTours(sm);
 
             for(int i=0; i< utkoma.size(); i++){
-                fxListView.getItems().add(utkoma);
+                fxListView.getItems().add(utkoma.get(i));
             }
         } catch (Exception e) {
             e.printStackTrace();

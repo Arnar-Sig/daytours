@@ -2,6 +2,7 @@ package sample.daytoursnyttsdk;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class SearchModel {
     public String getLocation() {
@@ -24,7 +25,7 @@ public class SearchModel {
         return activityDifficultyMax;
     }
 
-    public String getActivityType() {
+    public ArrayList<String> getActivityType() {
         return activityType;
     }
 
@@ -57,7 +58,7 @@ public class SearchModel {
     private int durationMax;
     private int activityDifficultyMin;
     private int activityDifficultyMax;
-    private String activityType;
+    private ArrayList<String> activityType;
     private int priceMin;
     private int priceMax;
     private int minSpotsLeft;
@@ -65,7 +66,7 @@ public class SearchModel {
     private LocalDate dateTo;
     private boolean hotelPickUp;
 
-    public SearchModel(String loc, int durMin, int durMax, int actMin, int actMax, String actType, int verdMin, int verdMax,
+    public SearchModel(String loc, int durMin, int durMax, int actMin, int actMax, ArrayList<String> actType, int verdMin, int verdMax,
                        int plassEftir, LocalDate dagsFra, LocalDate dagsTil, boolean hotel){
         location = loc;
         durationMin = durMin;
