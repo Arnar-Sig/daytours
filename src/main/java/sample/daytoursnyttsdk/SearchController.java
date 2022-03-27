@@ -131,6 +131,8 @@ public class SearchController implements Initializable {
          */
         int num_params[] = getNumParams();
 
+        // num_params[] geymir töluleg gögn úr viðmótshlutum (eða sjálfgefin gildi) í eftirfarandi röð:
+        // num_params[SpotsLeft, MinDuration, MinDifficulty, MinimumPrice, MaxDuration, MaxDifficulty, MaximumPrice]
         SearchModel sm = new SearchModel(fxLocation.getText(), num_params[1], num_params[4],
                 num_params[2], num_params[5], activities,
                 num_params[3], num_params[6],
