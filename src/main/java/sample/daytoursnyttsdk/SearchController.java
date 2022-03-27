@@ -1,6 +1,7 @@
 package sample.daytoursnyttsdk;
 
 import java.net.URL;
+import java.sql.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -85,7 +86,7 @@ public class SearchController implements Initializable {
          */
     }
 
-    public void searchButton(ActionEvent actionEvent) {
+    public ArrayList<String> searchButton(ActionEvent actionEvent) {
         /** Taka út það sem var í ListView fyrir **/
         ArrayList<String> resetter = new ArrayList<>();
         fxListView.getItems().setAll(resetter);
@@ -122,10 +123,10 @@ public class SearchController implements Initializable {
                 Integer.parseInt(fxMinimumPrice.getText()), Integer.parseInt(fxMaximumPrice.getText()),
                 Integer.parseInt(fxSpotsLeft.getText()), fxDateFrom.getValue(),
                 fxDateTo.getValue(), fxHotelPickup.isSelected());
-
+        ArrayList<String> utkoma = new ArrayList<>();
         try {
             /** Kalla á leitarfallið og uppfæra ListView **/
-            ArrayList<String> utkoma = databaseConnection.searchDayTours(sm);
+            utkoma = databaseConnection.searchDayTours(sm);
 
             for(int i=0; i< utkoma.size(); i++){
                 fxListView.getItems().add(utkoma.get(i));
@@ -134,6 +135,7 @@ public class SearchController implements Initializable {
             e.printStackTrace();
         }
         dt.updateSearchModel(sm);
+        return utkoma;
     }
 }
 

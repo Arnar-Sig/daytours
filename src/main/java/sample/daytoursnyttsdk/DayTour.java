@@ -4,46 +4,39 @@ import java.sql.Date;
 import java.time.LocalDate;
 
 public class DayTour {
+    /** Getters **/
     public String getTourName() {
         return tourName;
     }
-
     public String getLocation() {
         return location;
     }
-
     public int getDuration() {
         return duration;
     }
-
     public LocalDate getDate() {
         return date;
     }
-
     public int getSpotsLeft() {
         return spotsLeft;
     }
-
     public int getPrice() {
         return price;
     }
-
     public String getActivityType() {
         return activityType;
     }
-
     public int getActivityDifficulty() {
         return activityDifficulty;
     }
-
     public int isHotelPickUp() {
         return hotelPickUp;
     }
-
     public Participant[] getParticipants() {
         return participants;
     }
 
+    /** Local breytur **/
     private String tourName;
     private String location;
     private int duration;
@@ -55,8 +48,8 @@ public class DayTour {
     private int hotelPickUp;
     private Participant[] participants;
 
-    public DayTour(String nafn, String loc, int dur, LocalDate dags, int plassEftir, int verd, String type, int erfidleikastig,
-                   int pickup, Participant[] medlimir){
+    public DayTour(String nafn, String loc, int dur, LocalDate dags, int plassEftir, int verd,
+                   String type, int erfidleikastig, int pickup, Participant[] medlimir){
         tourName = nafn;
         location = loc;
         duration = dur;

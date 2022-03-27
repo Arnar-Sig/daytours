@@ -1,7 +1,5 @@
 package sample.daytoursnyttsdk;
 
-import java.lang.reflect.Array;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,10 +10,8 @@ public class DayTours {
     SearchModel searchModel;
     String sort;
 
-
     public DayTours(String rodun){
         sort = rodun;
-
     }
 
     /**
@@ -32,10 +28,6 @@ public class DayTours {
     public ArrayList<DayTour> getDayTours(SearchModel sm){
         ArrayList<String> m = new ArrayList<String>();
         ArrayList<DayTour> utkoma = new ArrayList<DayTour>();
-        if (sm == null){
-            System.out.println("Setja þarf SearchModel hlut sem breytu í fallið.");
-            return utkoma;
-        }
         DB dbConnection = new DB();
         try {
             m = dbConnection.searchDayTours(sm);
