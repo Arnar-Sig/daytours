@@ -4,6 +4,8 @@ import java.net.URL;
 import java.sql.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -59,10 +61,29 @@ public class SearchController implements Initializable {
     // geymslubreytur
     private DB databaseConnection;
     private DayTours dt;
+    private ArrayList<TextField> numSearchParams;
+    private LocalDate defaultDateFrom;
+    private LocalDate defaultDateTo;
+
+    // Constants
+    static final int DEFAULT_MIN = 0;
+    static final int PRICE_MAX = 1000000;
+    static final int DIFFICULTY_MAX = 5;
+    static final int DURATION_MAX = 888;
+    static final ArrayList<String> defaultActivities = new ArrayList<>(
+            Arrays.asList("Gonguferd", "Hjolaferd")
+    );
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         databaseConnection = new DB();
+        numSearchParams = new ArrayList<>();
+        Collections.addAll(numSearchParams,
+                fxSpotsLeft,
+                fxMinDuration, fxMinDifficulty, fxMinimumPrice,
+                fxMaxDuration, fxMaxDifficulty, fxMaximumPrice);
+        defaultDateFrom = LocalDate.now();
+        defaultDateTo = defaultDateFrom.plusYears(1);
         /*
         try {
             databaseTest.tengjastDB();
@@ -106,6 +127,10 @@ public class SearchController implements Initializable {
                 activities.add(box[i].getText());
             }
         }
+        // Ef ekkert er valið: Birta öll activity
+        if (activities.size() == 0) {
+            activities = defaultActivities;
+        }
 
         /** Búa til SearchModel út frá viðmótinu **/
         /*
@@ -116,13 +141,17 @@ public class SearchController implements Initializable {
         LocalDate rettDateFrom = LocalDate.of(Integer.parseInt(temp[0]),Integer.parseInt(temp[1]), Integer.parseInt(temp[2]));
         System.out.println(rettDateFrom);
          */
+        int num_params[] = getNumParams();
+        LocalDate from = (fxDateFrom.getValue() == null) ? defaultDateFrom : fxDateFrom.getValue();
+        LocalDate to = (fxDateTo.getValue() == null) ? defaultDateTo : fxDateTo.getValue();
 
-
-        SearchModel sm = new SearchModel(fxLocation.getText(), Integer.parseInt(fxMinDuration.getText()), Integer.parseInt(fxMaxDuration.getText()),
-                Integer.parseInt(fxMinDifficulty.getText()), Integer.parseInt(fxMaxDifficulty.getText()), activities,
-                Integer.parseInt(fxMinimumPrice.getText()), Integer.parseInt(fxMaximumPrice.getText()),
-                Integer.parseInt(fxSpotsLeft.getText()), fxDateFrom.getValue(),
-                fxDateTo.getValue(), fxHotelPickup.isSelected());
+        // num_params[] geymir töluleg gögn úr viðmótshlutum (eða sjálfgefin gildi) í eftirfarandi röð:
+        // num_params[SpotsLeft, MinDuration, MinDifficulty, MinimumPrice, MaxDuration, MaxDifficulty, MaximumPrice]
+        SearchModel sm = new SearchModel(fxLocation.getText(), num_params[1], num_params[4],
+                num_params[2], num_params[5], activities,
+                num_params[3], num_params[6],
+                num_params[0], from,
+                to, fxHotelPickup.isSelected());
         ArrayList<String> utkoma = new ArrayList<>();
         try {
             /** Kalla á leitarfallið og uppfæra ListView **/
@@ -136,6 +165,33 @@ public class SearchController implements Initializable {
         }
         dt.updateSearchModel(sm);
         return utkoma;
+    }
+
+    // Sækir gögn úr TextFields. Ef strengur er tómur þá er
+    // skilað sjálfgefnu há- eða lággildi
+    private int[] getNumParams() {
+        int p[] = new int[7];
+        for (int i = 0; i < numSearchParams.size(); i++) {
+            TextField text = numSearchParams.get(i);
+            if (!text.getText().isEmpty()) {
+                p[i] = Integer.parseInt(text.getText());
+            }
+            else {
+                if (i < 4) {
+                    p[i] = DEFAULT_MIN;
+                }
+                else if (i == 4) {
+                    p[i] = DURATION_MAX;
+                }
+                else if (i == 5){
+                    p[i] = DIFFICULTY_MAX;
+                }
+                else {
+                    p[i] = PRICE_MAX;
+                }
+            }
+        }
+        return p;
     }
 }
 
