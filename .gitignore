@@ -30,3 +30,7 @@ hs_err_pid*
 .gradle
 .gradle/
 .gradle*
+
+# Build Folder "
+build/
+build
