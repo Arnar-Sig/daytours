@@ -5,6 +5,15 @@ import java.time.LocalDate;
 
 public class DayTour {
     /** Getters **/
+    public String getAll() {
+        String part = "";
+        for(int i=0; i<participants.length; i++){
+            part = part + participants[i].getName();
+        }
+        String ut = tourName + ", " + location + ", " + duration + ", " + date + ", " + spotsLeft + ", " + price + ", "
+                + activityType + ", " + activityDifficulty + ", " + hotelPickUp + ", " + part;
+        return ut;
+    }
     public String getTourName() {
         return tourName;
     }

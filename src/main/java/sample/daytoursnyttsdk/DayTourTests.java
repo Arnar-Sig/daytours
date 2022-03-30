@@ -22,15 +22,17 @@ public class DayTourTests {
         testCaseDayTour = new DayTour("test", "test", 5, LocalDate.now(), 5, 5000,
                 "test", 5, 0, dummyFylki );
         assertNotNull(testCaseDayTour);
+        assertEquals("test", testCaseDayTour.getTourName());
     }
 
     @Test
-    public void testGtSearchModel(){
+    public void testSearchModel(){
 
         ArrayList<String> testActivityTypes = new ArrayList<>(); testActivityTypes.add("test"); testActivityTypes.add("test2");
         SearchModel sm = new SearchModel("test", 5, 10, 5, 10, testActivityTypes,
                 5, 500, 5, LocalDate.now(), LocalDate.now(), false);
         assertNotNull(sm);
+        assertEquals("test", sm.getLocation());
     }
 
     @Test

@@ -93,18 +93,19 @@ public class SearchController implements Initializable {
 
          */
 
-        /*
+
         //TEST KÓÐI FYRIR LEIT I GAGNAGRUNNI AN VIDMOTS
+        ArrayList<String> actType = new ArrayList<>(); actType.add("Gonguferd");
         SearchModel sm = new SearchModel("Keilir", 0,
-                300, 0, 5, "Gonguferd",
+                300, 0, 5, actType,
                 0, 10000, 1, LocalDate.of(2020, 2, 1),
                 LocalDate.of(2023, 6, 1), false);
         dt = new DayTours("Date");
         ArrayList<DayTour> ut = dt.getDayTours(sm);
         for(DayTour x : ut){
-            System.out.println(x.getDate());
+            System.out.println(x.getAll());
         }
-         */
+
     }
 
     public ArrayList<String> searchButton(ActionEvent actionEvent) {

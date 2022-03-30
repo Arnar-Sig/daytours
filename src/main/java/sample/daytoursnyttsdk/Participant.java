@@ -1,6 +1,10 @@
 package sample.daytoursnyttsdk;
 
 public class Participant {
+    public String getName() {
+        return name;
+    }
+
     private String name;
     private String phoneNr;
     private String email;
