@@ -4,6 +4,7 @@ import java.net.URL;
 import java.sql.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.ResourceBundle;
 
@@ -61,12 +62,17 @@ public class SearchController implements Initializable {
     private DB databaseConnection;
     private DayTours dt;
     private ArrayList<TextField> numSearchParams;
+    private LocalDate defaultDateFrom;
+    private LocalDate defaultDateTo;
 
     // Constants
     static final int DEFAULT_MIN = 0;
     static final int PRICE_MAX = 1000000;
     static final int DIFFICULTY_MAX = 5;
     static final int DURATION_MAX = 888;
+    static final ArrayList<String> defaultActivities = new ArrayList<>(
+            Arrays.asList("Gonguferd", "Hjolaferd")
+    );
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -76,6 +82,8 @@ public class SearchController implements Initializable {
                 fxSpotsLeft,
                 fxMinDuration, fxMinDifficulty, fxMinimumPrice,
                 fxMaxDuration, fxMaxDifficulty, fxMaximumPrice);
+        defaultDateFrom = LocalDate.now();
+        defaultDateTo = defaultDateFrom.plusYears(1);
         /*
         try {
             databaseTest.tengjastDB();
@@ -85,18 +93,19 @@ public class SearchController implements Initializable {
 
          */
 
-        /*
+
         //TEST KÓÐI FYRIR LEIT I GAGNAGRUNNI AN VIDMOTS
+        ArrayList<String> actType = new ArrayList<>(); actType.add("Gonguferd");
         SearchModel sm = new SearchModel("Keilir", 0,
-                300, 0, 5, "Gonguferd",
+                300, 0, 5, actType,
                 0, 10000, 1, LocalDate.of(2020, 2, 1),
                 LocalDate.of(2023, 6, 1), false);
         dt = new DayTours("Date");
         ArrayList<DayTour> ut = dt.getDayTours(sm);
         for(DayTour x : ut){
-            System.out.println(x.getDate());
+            System.out.println(x.getAll());
         }
-         */
+
     }
 
     public ArrayList<String> searchButton(ActionEvent actionEvent) {
@@ -119,6 +128,10 @@ public class SearchController implements Initializable {
                 activities.add(box[i].getText());
             }
         }
+        // Ef ekkert er valið: Birta öll activity
+        if (activities.size() == 0) {
+            activities = defaultActivities;
+        }
 
         /** Búa til SearchModel út frá viðmótinu **/
         /*
@@ -130,14 +143,16 @@ public class SearchController implements Initializable {
         System.out.println(rettDateFrom);
          */
         int num_params[] = getNumParams();
+        LocalDate from = (fxDateFrom.getValue() == null) ? defaultDateFrom : fxDateFrom.getValue();
+        LocalDate to = (fxDateTo.getValue() == null) ? defaultDateTo : fxDateTo.getValue();
 
         // num_params[] geymir töluleg gögn úr viðmótshlutum (eða sjálfgefin gildi) í eftirfarandi röð:
         // num_params[SpotsLeft, MinDuration, MinDifficulty, MinimumPrice, MaxDuration, MaxDifficulty, MaximumPrice]
         SearchModel sm = new SearchModel(fxLocation.getText(), num_params[1], num_params[4],
                 num_params[2], num_params[5], activities,
                 num_params[3], num_params[6],
-                num_params[0], fxDateFrom.getValue(),
-                fxDateTo.getValue(), fxHotelPickup.isSelected());
+                num_params[0], from,
+                to, fxHotelPickup.isSelected());
         ArrayList<String> utkoma = new ArrayList<>();
         try {
             /** Kalla á leitarfallið og uppfæra ListView **/

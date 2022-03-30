@@ -6,13 +6,14 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DayTours {
-    DayTour dayTour[];
-    SearchModel searchModel;
-    String sort;
+    private ArrayList<DayTour> currDayTours;
+    private SearchModel searchModel;
+    private String sort;
 
     public DayTours(String rodun){
         sort = rodun;
     }
+    public void updateSorting(String rodun){ sort = rodun; }
 
     /**
      * @param sm SearchModel hlutur sem inniheldur þau gögn sem leita á eftir í gagnagrunni.
@@ -49,6 +50,7 @@ public class DayTours {
             utkoma.add(temp);
 
         }
+        currDayTours = utkoma;
         return utkoma;
     }
 }
