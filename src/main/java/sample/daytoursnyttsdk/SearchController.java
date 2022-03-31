@@ -20,9 +20,7 @@ import javafx.scene.control.*;
  ***********************************************************/
 public class SearchController implements Initializable {
     @FXML
-    private RadioButton fxSortByNafn;
-    @FXML
-    private RadioButton fxSortByDate;
+    private ChoiceBox fxSort;
     @FXML
     private TextField fxSpotsLeft;
     @FXML
@@ -84,6 +82,13 @@ public class SearchController implements Initializable {
                 fxMaxDuration, fxMaxDifficulty, fxMaximumPrice);
         defaultDateFrom = LocalDate.now();
         defaultDateTo = defaultDateFrom.plusYears(1);
+
+        fxSort.getItems().addAll("Date", "Name", "Price");
+        fxSort.setValue("Date");
+        fxSort.setOnAction((event -> {
+            String s = fxSort.getValue().toString();
+            dt.updateSort(s);
+        }));
         /*
         try {
             databaseTest.tengjastDB();
@@ -107,16 +112,13 @@ public class SearchController implements Initializable {
          */
     }
 
-    public ArrayList<String> searchButton(ActionEvent actionEvent) {
+    public void searchButton(ActionEvent actionEvent) {
         /** Taka út það sem var í ListView fyrir **/
         ArrayList<String> resetter = new ArrayList<>();
         fxListView.getItems().setAll(resetter);
 
         /** Finna út eftir hverju á að raða **/
-        String sorting = "Date";
-        if (fxSortByNafn.isSelected()){
-            sorting = "Name";
-        }
+        String sorting = fxSort.getValue().toString();
         dt = new DayTours(sorting);
 
         /** Ná í öll activities yfir í fylki **/
@@ -127,7 +129,7 @@ public class SearchController implements Initializable {
                 activities.add(box[i].getText());
             }
         }
-        // Ef ekkert er valið: Birta öll activity
+        /** Ef ekkert activity er valið: Birta öll activity **/
         if (activities.size() == 0) {
             activities = defaultActivities;
         }
@@ -141,33 +143,43 @@ public class SearchController implements Initializable {
         LocalDate rettDateFrom = LocalDate.of(Integer.parseInt(temp[0]),Integer.parseInt(temp[1]), Integer.parseInt(temp[2]));
         System.out.println(rettDateFrom);
          */
+        /** Sækja töluleg gildi úr textareitum **/
         int num_params[] = getNumParams();
+
+        /** Ef ekkert Date valið: Stinga inn default gildum **/
         LocalDate from = (fxDateFrom.getValue() == null) ? defaultDateFrom : fxDateFrom.getValue();
         LocalDate to = (fxDateTo.getValue() == null) ? defaultDateTo : fxDateTo.getValue();
 
         // num_params[] geymir töluleg gögn úr viðmótshlutum (eða sjálfgefin gildi) í eftirfarandi röð:
         // num_params[SpotsLeft, MinDuration, MinDifficulty, MinimumPrice, MaxDuration, MaxDifficulty, MaximumPrice]
-        SearchModel sm = new SearchModel(fxLocation.getText(), num_params[1], num_params[4],
+        dt.updateSearchModel(fxLocation.getText(), num_params[1], num_params[4],
                 num_params[2], num_params[5], activities,
                 num_params[3], num_params[6],
                 num_params[0], from,
                 to, fxHotelPickup.isSelected());
-        ArrayList<String> utkoma = new ArrayList<>();
+
+        SearchModel sm = dt.getSearchModel();
+        ArrayList<DayTour> utkoma = new ArrayList<>();
         try {
-            /** Kalla á leitarfallið og uppfæra ListView **/
+            /** Kalla á leitarfallið **/
             utkoma = databaseConnection.searchDayTours(sm);
 
-            for(int i=0; i< utkoma.size(); i++){
-                fxListView.getItems().add(utkoma.get(i));
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        dt.updateSearchModel(sm);
-        return utkoma;
+
+        dt.updateDayTours(utkoma);
+        updateUI();
     }
 
-    // Sækir gögn úr TextFields. Ef strengur er tómur þá er
+    private void updateUI() {
+        ArrayList<String> tourDescriptions = dt.getDayTourDescriptions();
+        for (int i = 0; i < tourDescriptions.size(); i++) {
+            fxListView.getItems().add(tourDescriptions.get(i));
+        }
+    }
+
+    // Sækir töluleg gögn úr TextFields. Ef strengur er tómur þá er
     // skilað sjálfgefnu há- eða lággildi
     private int[] getNumParams() {
         int p[] = new int[7];

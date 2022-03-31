@@ -3,10 +3,11 @@ package sample.daytoursnyttsdk;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class DayTours {
-    DayTour dayTour[];
+    ArrayList<DayTour> dayTourList;
     SearchModel searchModel;
     String sort;
 
@@ -14,18 +15,49 @@ public class DayTours {
         sort = rodun;
     }
 
-    /**
-     * @param sm SearchModel hlutur sem inniheldur þau gögn sem leita á eftir í gagnagrunni.
-     */
-    public void updateSearchModel(SearchModel sm){
-        searchModel = sm;
+    public void updateSearchModel(String loc, int durMin, int durMax, int actMin,
+                                  int actMax, ArrayList<String> actType, int verdMin, int verdMax,
+                                  int plassEftir, LocalDate dagsFra, LocalDate dagsTil, boolean hotel){
+
+        searchModel = new SearchModel(loc, durMin, durMax, actMin, actMax, actType,
+                verdMin, verdMax, plassEftir, dagsFra, dagsTil, hotel);
+    }
+
+    public SearchModel getSearchModel() {
+        return searchModel;
+    }
+
+    /** Uppfærir daytour-listann eftir leit í gagnagrunni **/
+    public void updateDayTours(ArrayList<DayTour> dayTourArrayList) {
+        dayTourList = dayTourArrayList;
+        updateSort(sort);
+    }
+
+    /** Skilar strengja-ArrayList með lýsingu á daytours **/
+    public ArrayList<String> getDayTourDescriptions() {
+        ArrayList<String> descriptions = new ArrayList<>();
+        for (int i = 0; i < dayTourList.size(); i++) {
+            DayTour dt = dayTourList.get(i);
+            String s = "";
+            s = s + dt.getTourName() + " á " + dt.getLocation() + ", " + dt.getDate().toString();
+            descriptions.add(s);
+        }
+        return descriptions;
+    }
+
+    /** Uppfærir röðunarskilyrði í öllum daytours í lista **/
+    public void updateSort(String s) {
+        for (DayTour dt: dayTourList) {
+            dt.sortBy(s);
+        }
+        Collections.sort(dayTourList);
     }
 
     /**
      * @param sm = SearchModel hlutur sem inniheldur þau gögn sem leita á eftir í gagnagrunni.
      * @return ArrayList<DayTour> fylki af DayTour hlutum sem fundust í gagnagrunni.
      */
-    public ArrayList<DayTour> getDayTours(SearchModel sm){
+    /**private ArrayList<DayTour> getDayTours(SearchModel sm){
         ArrayList<String> m = new ArrayList<String>();
         ArrayList<DayTour> utkoma = new ArrayList<DayTour>();
         DB dbConnection = new DB();
@@ -50,5 +82,6 @@ public class DayTours {
 
         }
         return utkoma;
-    }
+    }**/
+
 }

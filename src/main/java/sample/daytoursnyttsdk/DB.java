@@ -3,15 +3,18 @@ package sample.daytoursnyttsdk;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class DB {
-    public ArrayList<String> searchDayTours(SearchModel sm) throws Exception {
+    public ArrayList<DayTour> searchDayTours(SearchModel sm) throws Exception {
             // TO-do: láta fallið skila hlut af DayTours með öllu útfylltu
             //        (þarf að ná í gögn úr Participants gagnagrunni t.d.)
 
             Class.forName("org.sqlite.JDBC");
             Connection conn = null;
             ArrayList<String> fylkiAfRodum = new ArrayList<>();
+            ArrayList<DayTour> utkoma = new ArrayList<>();
             try
             {
                 conn = DriverManager.getConnection("jdbc:sqlite:src/main/java/sample/daytoursnyttsdk/DayTours.db");
@@ -76,7 +79,22 @@ public class DB {
                     //System.out.println(rod);
                     fylkiAfRodum.add(rod);
                 }
-                return fylkiAfRodum;
+
+                for (int i = 0; i < fylkiAfRodum.size(); i++) {
+                    List<String> list = Arrays.asList(fylkiAfRodum.get(i).split("\\s*,\\s*"));
+
+                    //TEMP gervigögn - breyta þegar Participant er útfært
+                    Participant dummy = new Participant("test", "test", "test", "test", 5);
+                    Participant[] dummyFylki = new Participant[1];
+                    dummyFylki[0] = dummy;
+                    //TEMP gervigögn
+
+                    DayTour temp = new DayTour(list.get(0), list.get(3), Integer.parseInt(list.get(8)), LocalDate.parse(list.get(1)),
+                            Integer.parseInt(list.get(4)), Integer.parseInt(list.get(2)), list.get(5), Integer.parseInt(list.get(6)),
+                            Integer.parseInt(list.get(7)), dummyFylki );
+                    utkoma.add(temp);
+                }
+                return utkoma;
 
             }
             catch(SQLException e){
@@ -92,6 +110,6 @@ public class DB {
                     System.err.println(e);
                 }
             }
-            return fylkiAfRodum;
+            return utkoma;
     }
 }

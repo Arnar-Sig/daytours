@@ -3,7 +3,7 @@ package sample.daytoursnyttsdk;
 import java.sql.Date;
 import java.time.LocalDate;
 
-public class DayTour {
+public class DayTour implements Comparable<DayTour>{
     /** Getters **/
     public String getTourName() {
         return tourName;
@@ -20,7 +20,7 @@ public class DayTour {
     public int getSpotsLeft() {
         return spotsLeft;
     }
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
     public String getActivityType() {
@@ -42,11 +42,14 @@ public class DayTour {
     private int duration;
     private LocalDate date;
     private int spotsLeft;
-    private int price;
+    private Integer price;
     private String activityType;
     private int activityDifficulty;
     private int hotelPickUp;
     private Participant[] participants;
+    private String sortType;
+
+    private String[] sortTypes = {"Name", "Date", "Price"};
 
     public DayTour(String nafn, String loc, int dur, LocalDate dags, int plassEftir, int verd,
                    String type, int erfidleikastig, int pickup, Participant[] medlimir){
@@ -55,10 +58,28 @@ public class DayTour {
         duration = dur;
         date = dags;
         spotsLeft = plassEftir;
-        price = verd;
+        price = Integer.valueOf(verd);
         activityType = type;
         activityDifficulty = erfidleikastig;
         hotelPickUp = pickup;
         participants = medlimir;
+    }
+
+    @Override
+    public int compareTo(DayTour o) {
+        if (this.sortType.equals(sortTypes[0])) {
+            return this.getTourName().compareTo(o.getTourName());
+        }
+        else if (this.sortType.equals(sortTypes[1])) {
+            return this.getDate().compareTo(o.getDate());
+        }
+        else if (this.sortType.equals(sortTypes[2])) {
+            return this.getPrice().compareTo(o.getPrice());
+        }
+        return 0;
+    }
+
+    public void sortBy(String s) {
+        sortType = s;
     }
 }

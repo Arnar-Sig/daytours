@@ -14,7 +14,7 @@ public class DayTourTests {
     DayTours DayToursTestCase;
     DayTour testCaseDayTour;
 
-    @Test
+    /**@Test
     public void testDayTourObject(){
         Participant dummy = new Participant("test", "test", "test", "test", 5);
         Participant[] dummyFylki = new Participant[1];
@@ -49,5 +49,5 @@ public class DayTourTests {
         assertNotNull(dummySM);
         assertNotEquals(0, dummyUtkoma.size());
         assertTrue(dummyUtkoma.get(0) instanceof String);
-    }
+    }**/
 }
