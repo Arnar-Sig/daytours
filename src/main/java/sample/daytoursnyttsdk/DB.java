@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class DB {
-    public ArrayList<String> searchDayTours(SearchModel sm) throws Exception {
+    public ArrayList<String> getDayToursDatabase(SearchModel sm) throws Exception {
             // TO-do: láta fallið skila hlut af DayTours með öllu útfylltu
             //        (þarf að ná í gögn úr Participants gagnagrunni t.d.)
 
@@ -38,7 +38,7 @@ public class DB {
                     activityTypeStrengur = activityTypeStrengur + " OR " +  "activityType = " + '"' + sm.getActivityType().get(i) + '"';
                 }
 
-                /** SQL-skipunin sem notuð verður til að ná í gögn frá gagnagrunni **/
+                /** SQL-skipunin sem notuð verður til að ná í gögn um DayTours frá gagnagrunni **/
                 String sqlSkipun = "SELECT * FROM DayTours WHERE price BETWEEN " + sm.getPriceMin() + " AND " + sm.getPriceMax()
                         + " AND location = " + '"' +  sm.getLocation() + '"' + " AND spots >= " + sm.getMinSpotsLeft()
                         + " AND (" + activityTypeStrengur + ") AND " + "activityDifficulty BETWEEN " + sm.getActivityDifficultyMin()
@@ -57,7 +57,7 @@ public class DB {
                  */
 
 
-                /** Náð í gögn frá gagnagrunni og sett í fylki **/
+                /** Náð í gögn frá gagnagrunni og sett sem fylki af strengjum **/
                 ResultSet r = statement.executeQuery(sqlSkipun);
                 ResultSetMetaData rm = r.getMetaData();
                 int colCount = rm.getColumnCount();
@@ -93,5 +93,63 @@ public class DB {
                 }
             }
             return fylkiAfRodum;
+    }
+
+    public void addParticipantDatabase(ArrayList<Participant> ppl) throws ClassNotFoundException {
+        Class.forName("org.sqlite.JDBC");
+        Connection conn = null;
+        try
+        {
+            conn = DriverManager.getConnection("jdbc:sqlite:src/main/java/sample/daytoursnyttsdk/DayTours.db");
+            Statement statement;
+
+            for(int i=0; i<ppl.size(); i++){
+                statement = conn.createStatement();
+                String sqlSkipun = "INSERT INTO Participants(name, email, phone, kennitala, pk) VALUES " +
+                        "(" + '"' + ppl.get(i).getName() + '"' + ", " + '"' + ppl.get(i).getEmail() + '"' + ", " +
+                        '"' + ppl.get(i).getPhoneNr() + '"' + ", " + '"' + ppl.get(i).getKennitala() + '"' + ", " +
+                        '"' + ppl.get(i).getID() + '"' +  ");";
+                System.out.println(sqlSkipun);
+                statement.execute(sqlSkipun);
+
+            }
+        }
+        catch(SQLException e){
+            System.err.println(e.getMessage());
+        }
+        finally{
+            try {
+                if(conn != null) conn.close();
+            }
+            catch(SQLException e) {
+                System.err.println(e);
+            }
+        }
+    }
+    public void removeParticipant(ArrayList<Participant> ppl) throws ClassNotFoundException {
+        Class.forName("org.sqlite.JDBC");
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:sqlite:src/main/java/sample/daytoursnyttsdk/DayTours.db");
+            Statement statement;
+
+            for(int i=0; i<ppl.size(); i++){
+                statement = conn.createStatement();
+                String sqlSkipun = "DELETE FROM Participants WHERE kennitala = " + '"' + ppl.get(i).getKennitala() + '"'
+                        + " AND PK = " + '"' + ppl.get(i).getID() + '"' + ";";
+                System.out.println(sqlSkipun);
+                statement.execute(sqlSkipun);
+
+            }
+        } catch(SQLException e){
+            System.err.println(e.getMessage());
+        } finally{
+            try {
+                if(conn != null) conn.close();
+            }
+            catch(SQLException e) {
+                System.err.println(e);
+            }
+        }
     }
 }

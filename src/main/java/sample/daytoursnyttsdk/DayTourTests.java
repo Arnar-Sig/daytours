@@ -1,12 +1,9 @@
 package sample.daytoursnyttsdk;
 
-import javafx.scene.control.ListView;
 import org.junit.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -18,11 +15,11 @@ public class DayTourTests {
 
     @Test
     public void testDayTourObject(){
-        Participant dummy = new Participant("test", "test", "test", "test", 5);
-        Participant[] dummyFylki = new Participant[1];
-        dummyFylki[0] = dummy;
+        Participant dummy = new Participant("test", "test", "test", "test", 2);
+        ArrayList<Participant> dummyFylki = new ArrayList<>();
+        dummyFylki.add(dummy);
         testCaseDayTour = new DayTour("test", "test", 5, LocalDate.now(), 5, 5000,
-                "test", 5, 0, dummyFylki );
+                "test", 5, 0, dummyFylki, 2 );
         assertNotNull(testCaseDayTour);
         assertEquals("test", testCaseDayTour.getTourName());
     }
@@ -46,7 +43,7 @@ public class DayTourTests {
         DB databaseConnection = new DB();
         ArrayList<String> dummyUtkoma = new ArrayList<>();
         try {
-            dummyUtkoma = databaseConnection.searchDayTours(dummySM);
+            dummyUtkoma = databaseConnection.getDayToursDatabase(dummySM);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -64,7 +61,7 @@ public class DayTourTests {
         DB databaseConnection = new DB();
         ArrayList<String> dummyUtkoma = new ArrayList<>();
         try {
-            dummyUtkoma = databaseConnection.searchDayTours(dummySM);
+            dummyUtkoma = databaseConnection.getDayToursDatabase(dummySM);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -85,6 +82,5 @@ public class DayTourTests {
         assertEquals(" " + 3, list[6]);
         assertEquals(" " + 0,list[7]);
         assertEquals(" " + 120, list[8]);
-
     }
 }

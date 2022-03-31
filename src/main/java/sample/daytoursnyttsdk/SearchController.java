@@ -1,7 +1,6 @@
 package sample.daytoursnyttsdk;
 
 import java.net.URL;
-import java.sql.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -84,19 +83,11 @@ public class SearchController implements Initializable {
                 fxMaxDuration, fxMaxDifficulty, fxMaximumPrice);
         defaultDateFrom = LocalDate.now();
         defaultDateTo = defaultDateFrom.plusYears(1);
-        /*
-        try {
-            databaseTest.tengjastDB();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-         */
 
 
-        //TEST KÓÐI FYRIR LEIT I GAGNAGRUNNI AN VIDMOTS
+        // TEST KÓÐI FYRIR LEIT I GAGNAGRUNNI AN VIDMOTS
         ArrayList<String> actType = new ArrayList<>(); actType.add("Gonguferd");
-        SearchModel sm = new SearchModel("Keilir", 0,
+        SearchModel sm = new SearchModel("Reykjavik", 0,
                 300, 0, 5, actType,
                 0, 10000, 1, LocalDate.of(2020, 2, 1),
                 LocalDate.of(2023, 6, 1), false);
@@ -105,6 +96,20 @@ public class SearchController implements Initializable {
         for(DayTour x : ut){
             System.out.println(x.getAll());
         }
+        // TEST KÓÐI FYRIR LEIT I GAGNAGRUNNI AN VIDMOTS
+
+        /*
+        // test fyrir að adda participants í sql gagnagrunn
+        Participant testSubject1 = new Participant("Gerdur", "5699755", "gerd@siminn.is",
+                "0407002549", ut.get(0).getID());
+        Participant testSubject2 = new Participant("Hallgerdur", "5677777", "halla@hotmail.com",
+                "1005882539", ut.get(0).getID());
+        ArrayList<Participant> testSubjectList = new ArrayList<>(); testSubjectList.add(testSubject1);
+        testSubjectList.add(testSubject2);
+        ut.get(0).addParticipants(testSubjectList);
+        // test fyrir að adda participants í sql gagnagrunn
+        */
+
 
     }
 
@@ -134,14 +139,6 @@ public class SearchController implements Initializable {
         }
 
         /** Búa til SearchModel út frá viðmótinu **/
-        /*
-        //Oþarfi?
-        String dateFromString = fxDateFrom.getValue().toString();
-        System.out.println(dateFromString);
-        String[] temp = dateFromString.split("-");
-        LocalDate rettDateFrom = LocalDate.of(Integer.parseInt(temp[0]),Integer.parseInt(temp[1]), Integer.parseInt(temp[2]));
-        System.out.println(rettDateFrom);
-         */
         int num_params[] = getNumParams();
         LocalDate from = (fxDateFrom.getValue() == null) ? defaultDateFrom : fxDateFrom.getValue();
         LocalDate to = (fxDateTo.getValue() == null) ? defaultDateTo : fxDateTo.getValue();
@@ -156,7 +153,7 @@ public class SearchController implements Initializable {
         ArrayList<String> utkoma = new ArrayList<>();
         try {
             /** Kalla á leitarfallið og uppfæra ListView **/
-            utkoma = databaseConnection.searchDayTours(sm);
+            utkoma = databaseConnection.getDayToursDatabase(sm);
 
             for(int i=0; i< utkoma.size(); i++){
                 fxListView.getItems().add(utkoma.get(i));
