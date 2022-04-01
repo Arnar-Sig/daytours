@@ -113,7 +113,7 @@ public class SearchController implements Initializable {
 
     }
 
-    public ArrayList<String> searchButton(ActionEvent actionEvent) {
+    public ArrayList<DayTour> searchButton(ActionEvent actionEvent) {
         /** Taka út það sem var í ListView fyrir **/
         ArrayList<String> resetter = new ArrayList<>();
         fxListView.getItems().setAll(resetter);
@@ -150,13 +150,14 @@ public class SearchController implements Initializable {
                 num_params[3], num_params[6],
                 num_params[0], from,
                 to, fxHotelPickup.isSelected());
-        ArrayList<String> utkoma = new ArrayList<>();
+        ArrayList<DayTour> utkoma = new ArrayList<>();
         try {
             /** Kalla á leitarfallið og uppfæra ListView **/
             utkoma = databaseConnection.getDayToursDatabase(sm);
 
+            //  LAGA, KEMUR VITLAUST UT EFTIR BREYTINGU A ArrayList<String> yfir í ArrayList<DayTour> //
             for(int i=0; i< utkoma.size(); i++){
-                fxListView.getItems().add(utkoma.get(i));
+                fxListView.getItems().add(utkoma.get(i).getAll());
             }
         } catch (Exception e) {
             e.printStackTrace();

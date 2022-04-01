@@ -5,10 +5,16 @@ import java.util.ArrayList;
 
 public class DayTour {
     /** Getters **/
+    /** Skilar öllum upplýsingum um ferðina í strengjaformi. **/
     public String getAll() {
         String part = "";
         for(int i=0; i<participants.size(); i++){
-            part = part + participants.get(i).getName();
+            if(participants.size()-i != 1) {
+                part = part + participants.get(i).getName() + " - ";
+            }
+            else{
+                part = part + participants.get(i).getName() + " ";
+            }
         }
         String ut = tourName + ", " + location + ", " + duration + ", " + date + ", " + spotsLeft + ", " + price + ", "
                 + activityType + ", " + activityDifficulty + ", " + hotelPickUp + ", " + part + ", " + ID;

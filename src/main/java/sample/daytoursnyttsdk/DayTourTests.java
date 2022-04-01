@@ -41,7 +41,7 @@ public class DayTourTests {
                 0, 10000, 5, LocalDate.of(2022, 01, 01),
                 LocalDate.of(2022, 12, 12), false);
         DB databaseConnection = new DB();
-        ArrayList<String> dummyUtkoma = new ArrayList<>();
+        ArrayList<DayTour> dummyUtkoma = new ArrayList<>();
         try {
             dummyUtkoma = databaseConnection.getDayToursDatabase(dummySM);
         } catch (Exception e) {
@@ -49,7 +49,7 @@ public class DayTourTests {
         }
         assertNotNull(dummySM);
         assertNotEquals(0, dummyUtkoma.size());
-        assertTrue(dummyUtkoma.get(0) instanceof String);
+        assertTrue(dummyUtkoma.get(0) != null);
     }
 
     @Test
@@ -59,28 +59,28 @@ public class DayTourTests {
                 1000, 1000, 5, LocalDate.of(2022, 04, 07),
                 LocalDate.of(2022, 04, 07), false);
         DB databaseConnection = new DB();
-        ArrayList<String> dummyUtkoma = new ArrayList<>();
+        ArrayList<DayTour> dummyUtkoma = new ArrayList<>();
         try {
             dummyUtkoma = databaseConnection.getDayToursDatabase(dummySM);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        String[] list = dummyUtkoma.get(0).split(",");
+        //String[] list = dummyUtkoma.get(0).split(",");
         /*
         System.out.println(dummyUtkoma);
         for(int i=0; i<list.length;i++){
             System.out.println(list[i]);
         }
          */
-        assertEquals("Gonguferd um Reykjavik", list[0]);
-        assertEquals(" 2022-04-07", list[1]);
-        assertEquals( " " + 1000, list[2]);
-        assertEquals(" Reykjavik", list[3]);
-        assertEquals(" " + 15, list[4]);
-        assertEquals(" Gonguferd", list[5]);
-        assertEquals(" " + 3, list[6]);
-        assertEquals(" " + 0,list[7]);
-        assertEquals(" " + 120, list[8]);
+        assertEquals("Gonguferd um Reykjavik", dummyUtkoma.get(0).getTourName());
+        assertEquals(" 2022-04-07", dummyUtkoma.get(0).getDate());
+        assertEquals( " " + 1000, dummyUtkoma.get(0).getPrice());
+        assertEquals(" Reykjavik", dummyUtkoma.get(0).getLocation());
+        assertEquals(" " + 15, dummyUtkoma.get(0).getSpotsLeft());
+        assertEquals(" Gonguferd", dummyUtkoma.get(0).getActivityType());
+        assertEquals(" " + 3, dummyUtkoma.get(0).getActivityDifficulty());
+        //assertEquals(" " + 0, dummyUtkoma.get(1).get);
+        assertEquals(" " + 120, dummyUtkoma.get(0).getDuration());
     }
 }
