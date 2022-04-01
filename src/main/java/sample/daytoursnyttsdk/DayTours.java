@@ -50,7 +50,10 @@ public class DayTours {
         for (DayTour dt: dayTourList) {
             dt.sortBy(s);
         }
-        Collections.sort(dayTourList);
+        if (s.equals("Price: High to Low")) {
+            Collections.sort(dayTourList, Collections.reverseOrder());
+        }
+        else Collections.sort(dayTourList);
     }
 
     /**

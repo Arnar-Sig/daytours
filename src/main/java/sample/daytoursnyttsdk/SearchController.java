@@ -83,7 +83,7 @@ public class SearchController implements Initializable {
         defaultDateFrom = LocalDate.now();
         defaultDateTo = defaultDateFrom.plusYears(1);
 
-        fxSort.getItems().addAll("Date", "Name", "Price");
+        fxSort.getItems().addAll("Date", "Name", "Price: Low to High", "Price: High to Low");
         fxSort.setValue("Date");
         fxSort.setOnAction((event -> {
             String s = fxSort.getValue().toString();

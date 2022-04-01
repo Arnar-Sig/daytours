@@ -49,7 +49,7 @@ public class DayTour implements Comparable<DayTour>{
     private Participant[] participants;
     private String sortType;
 
-    private String[] sortTypes = {"Name", "Date", "Price"};
+    private String[] sortTypes = {"Name", "Price: Low to High", "Price: High to Low"};
 
     public DayTour(String nafn, String loc, int dur, LocalDate dags, int plassEftir, int verd,
                    String type, int erfidleikastig, int pickup, Participant[] medlimir){
@@ -70,13 +70,10 @@ public class DayTour implements Comparable<DayTour>{
         if (this.sortType.equals(sortTypes[0])) {
             return this.getTourName().compareTo(o.getTourName());
         }
-        else if (this.sortType.equals(sortTypes[1])) {
-            return this.getDate().compareTo(o.getDate());
-        }
-        else if (this.sortType.equals(sortTypes[2])) {
+        else if (this.sortType.equals(sortTypes[1]) || this.sortType.equals(sortTypes[2])) {
             return this.getPrice().compareTo(o.getPrice());
         }
-        return 0;
+        else return this.getDate().compareTo(o.getDate());
     }
 
     public void sortBy(String s) {
