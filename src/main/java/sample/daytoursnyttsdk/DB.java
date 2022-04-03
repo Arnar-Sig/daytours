@@ -12,12 +12,15 @@ public class DB {
             //        (þarf að ná í gögn úr Participants gagnagrunni t.d.)
 
             Class.forName("org.sqlite.JDBC");
-            Connection conn = null;
+            Connection connDayTour = null;
+            Connection connParticipant = null;
             ArrayList<DayTour> fylkiAfRodum = new ArrayList<>();
             try
             {
-                conn = DriverManager.getConnection("jdbc:sqlite:src/main/java/sample/daytoursnyttsdk/DayTours.db");
-                Statement statement = conn.createStatement();
+                connDayTour = DriverManager.getConnection("jdbc:sqlite:src/main/java/sample/daytoursnyttsdk/DayTours.db");
+                connParticipant = DriverManager.getConnection("jdbc:sqlite:src/main/java/sample/daytoursnyttsdk/DayTours.db");
+                Statement statementDayTour = connDayTour.createStatement();
+                Statement statementParticipant= connParticipant.createStatement();
                 /*
                 String sqlSkipun = "SELECT * FROM DayTours WHERE day BETWEEN " + sm.getDateFrom() + " AND " + sm.getDateTo()
                         + " AND price BETWEEN " + "sm.getPriceMin()" + " AND " + sm.getPriceMax()
@@ -60,7 +63,7 @@ public class DB {
 
 
                 /** Náð í gögn frá gagnagrunni og sett sem fylki af strengjum **/
-                ResultSet r = statement.executeQuery(sqlSkipun);
+                ResultSet r = statementDayTour.executeQuery(sqlSkipun);
                 ResultSetMetaData rm = r.getMetaData();
                 int colCount = rm.getColumnCount();
                 while(r.next()){
@@ -80,7 +83,7 @@ public class DB {
                     // Ná í og búa til participants
                     ArrayList<Participant> medlimir = new ArrayList<>();
                     String sqlParticipants = "SELECT * FROM Participants WHERE PK = " + list.get(9) + ";";
-                    ResultSet resultParticipants = statement.executeQuery(sqlParticipants);
+                    ResultSet resultParticipants = statementParticipant.executeQuery(sqlParticipants);
 
                     while(resultParticipants.next()){
                         Participant medlimur = new Participant(resultParticipants.getString(1),
@@ -88,9 +91,6 @@ public class DB {
                                 resultParticipants.getString(4), resultParticipants.getInt(5));
                         medlimir.add(medlimur);
                     }
-
-
-
                     /*
                     //TEMP gervigögn - breyta þegar Participant er útfært
                     Participant dummy = new Participant("test", "test", "test", "test", 5);
@@ -99,7 +99,6 @@ public class DB {
                     //TEMP gervigögn
                      */
                     /** Búa til DayTour hlut og bæta honum við fylkið **/
-                    System.out.println(list.get(0));
                     DayTour temp = new DayTour(list.get(0), list.get(3), Integer.parseInt(list.get(8)), LocalDate.parse(list.get(1)),
                             Integer.parseInt(list.get(4)), Integer.parseInt(list.get(2)), list.get(5), Integer.parseInt(list.get(6)),
                             Integer.parseInt(list.get(7)), medlimir, Integer.parseInt(list.get(9)));
@@ -107,7 +106,12 @@ public class DB {
 
                     //fylkiAfRodum.add(rod);
                 }
+                /*
+                for (DayTour x : fylkiAfRodum){
+                    System.out.println(x.getAll());
+                }
                 return fylkiAfRodum;
+                 */
 
             }
             catch(SQLException e){
@@ -116,7 +120,8 @@ public class DB {
             finally{
                 try
                 {
-                    if(conn != null) conn.close();
+                    if(connDayTour != null) connDayTour.close();
+                    if(connParticipant != null) connParticipant.close();
                 }
                 catch(SQLException e)
                 {

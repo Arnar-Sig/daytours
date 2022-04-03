@@ -85,6 +85,7 @@ public class SearchController implements Initializable {
         defaultDateTo = defaultDateFrom.plusYears(1);
 
 
+        /*
         // TEST KÓÐI FYRIR LEIT I GAGNAGRUNNI AN VIDMOTS
         ArrayList<String> actType = new ArrayList<>(); actType.add("Gonguferd");
         SearchModel sm = new SearchModel("Reykjavik", 0,
@@ -97,6 +98,7 @@ public class SearchController implements Initializable {
             System.out.println(x.getAll());
         }
         // TEST KÓÐI FYRIR LEIT I GAGNAGRUNNI AN VIDMOTS
+         */
 
         /*
         // test fyrir að adda participants í sql gagnagrunn
