@@ -3,7 +3,7 @@ package sample.daytoursnyttsdk;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class DayTour {
+public class DayTour implements Comparable<DayTour>{
     /** Getters **/
     /** Skilar öllum upplýsingum um ferðina í strengjaformi. **/
     public String getAll() {
@@ -35,7 +35,7 @@ public class DayTour {
     public int getSpotsLeft() {
         return spotsLeft;
     }
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
     public String getActivityType() {
@@ -60,12 +60,15 @@ public class DayTour {
     private int duration;
     private LocalDate date;
     private int spotsLeft;
-    private int price;
+    private Integer price;
     private String activityType;
     private int activityDifficulty;
     private int hotelPickUp;
     private ArrayList<Participant> participants;
     private final int ID;
+    private String sortType;
+
+    private String[] sortTypes = {"Name", "Price: Low to High", "Price: High to Low"};
 
     public DayTour(String nafn, String loc, int dur, LocalDate dags, int plassEftir, int verd,
                    String type, int erfidleikastig, int pickup, ArrayList<Participant> medlimir, int identity){
@@ -75,7 +78,7 @@ public class DayTour {
         duration = dur;
         date = dags;
         spotsLeft = plassEftir;
-        price = verd;
+        price = Integer.valueOf(verd);
         activityType = type;
         activityDifficulty = erfidleikastig;
         hotelPickUp = pickup;
@@ -126,4 +129,18 @@ public class DayTour {
     }
 
 
+    @Override
+    public int compareTo(DayTour o) {
+        if (this.sortType.equals(sortTypes[0])) {
+            return this.getTourName().compareTo(o.getTourName());
+        }
+        else if (this.sortType.equals(sortTypes[1]) || this.sortType.equals(sortTypes[2])) {
+            return this.getPrice().compareTo(o.getPrice());
+        }
+        else return this.getDate().compareTo(o.getDate());
+    }
+
+    public void sortBy(String s) {
+        sortType = s;
+    }
 }

@@ -106,12 +106,6 @@ public class DB {
 
                     //fylkiAfRodum.add(rod);
                 }
-                /*
-                for (DayTour x : fylkiAfRodum){
-                    System.out.println(x.getAll());
-                }
-                return fylkiAfRodum;
-                 */
 
             }
             catch(SQLException e){

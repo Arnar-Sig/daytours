@@ -82,5 +82,6 @@ public class DayTourTests {
         assertEquals(" " + 3, dummyUtkoma.get(0).getActivityDifficulty());
         //assertEquals(" " + 0, dummyUtkoma.get(1).get);
         assertEquals(" " + 120, dummyUtkoma.get(0).getDuration());
+        assertTrue(dummyUtkoma.get(0) instanceof DayTour);
     }
 }
