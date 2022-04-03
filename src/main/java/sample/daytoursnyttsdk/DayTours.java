@@ -7,10 +7,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class DayTours {
+
     private ArrayList<DayTour> dayTourList;
     private SearchModel searchModel;
     private String sort;
 
+    public ArrayList<DayTour> getDayTourList() {
+        return dayTourList;
+    }
     public DayTours(String rodun){
         sort = rodun;
     }

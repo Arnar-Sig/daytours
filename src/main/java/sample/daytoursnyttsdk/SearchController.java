@@ -103,7 +103,6 @@ public class SearchController implements Initializable {
         }
         // TEST KÓÐI FYRIR LEIT I GAGNAGRUNNI AN VIDMOTS
          */
-
         /*
         // test fyrir að adda participants í sql gagnagrunn
         Participant testSubject1 = new Participant("Gerdur", "5699755", "gerd@siminn.is",
@@ -115,6 +114,9 @@ public class SearchController implements Initializable {
         ut.get(0).addParticipants(testSubjectList);
         // test fyrir að adda participants í sql gagnagrunn
         */
+
+
+
 
 
     }
