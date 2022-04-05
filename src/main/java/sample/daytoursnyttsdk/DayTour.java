@@ -113,7 +113,7 @@ public class DayTour implements Comparable<DayTour>{
         }
         DB databaseConnection = new DB();
         try {
-            databaseConnection.removeParticipant(ppl);
+            databaseConnection.removeParticipantDatabase(ppl);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             return;

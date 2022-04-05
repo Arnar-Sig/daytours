@@ -125,7 +125,7 @@ public class DB {
             return fylkiAfRodum;
     }
 
-    public void addParticipantDatabase(ArrayList<Participant> ppl) throws ClassNotFoundException {
+    protected void addParticipantDatabase(ArrayList<Participant> ppl) throws ClassNotFoundException {
         Class.forName("org.sqlite.JDBC");
         Connection conn = null;
         try
@@ -156,7 +156,7 @@ public class DB {
             }
         }
     }
-    public void removeParticipant(ArrayList<Participant> ppl) throws ClassNotFoundException {
+    protected void removeParticipantDatabase(ArrayList<Participant> ppl) throws ClassNotFoundException {
         Class.forName("org.sqlite.JDBC");
         Connection conn = null;
         try {
@@ -169,8 +169,8 @@ public class DB {
                         + " AND PK = " + '"' + ppl.get(i).getID() + '"' + ";";
                 System.out.println(sqlSkipun);
                 statement.execute(sqlSkipun);
-
             }
+
         } catch(SQLException e){
             System.err.println(e.getMessage());
         } finally{
