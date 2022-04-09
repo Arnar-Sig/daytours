@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class DayTour implements Comparable<DayTour>{
     /** Getters **/
+
     /** Skilar öllum upplýsingum um ferðina í strengjaformi. **/
     public String getAll() {
         String part = "";
@@ -120,6 +121,27 @@ public class DayTour implements Comparable<DayTour>{
         }
 
         for (Participant participant : ppl) {
+            for (int j = 0; j < participants.size(); j++) {
+                if (participant.getKennitala().equalsIgnoreCase(participants.get(j).getKennitala())) {
+                    participants.remove(participants.get(j));
+                }
+            }
+        }
+    }
+
+    public void removeAllParticipants(){
+        if(participants.size() == 0){
+            return;
+        }
+        DB databaseConnection = new DB();
+        try {
+            databaseConnection.removeParticipantDatabase(participants);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        for (Participant participant : participants) {
             for (int j = 0; j < participants.size(); j++) {
                 if (participant.getKennitala().equalsIgnoreCase(participants.get(j).getKennitala())) {
                     participants.remove(participants.get(j));

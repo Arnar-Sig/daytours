@@ -78,5 +78,4 @@ public class DayTours {
         dayTourList = utkoma;
         return utkoma;
     }
-
 }

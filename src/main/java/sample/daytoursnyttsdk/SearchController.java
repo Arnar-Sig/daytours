@@ -158,7 +158,6 @@ public class SearchController implements Initializable {
                 num_params[0], from,
                 to, fxHotelPickup.isSelected());
 
-
         ArrayList<DayTour> utkoma = new ArrayList<>();
         try {
             /** Kalla á leitarfallið **/

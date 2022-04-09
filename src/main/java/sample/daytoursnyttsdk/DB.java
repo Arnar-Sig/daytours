@@ -44,12 +44,22 @@ public class DB {
                 }
 
                 /** SQL-skipunin sem notuð verður til að ná í gögn um DayTours frá gagnagrunni **/
-                String sqlSkipun = "SELECT * FROM DayTours WHERE price BETWEEN " + sm.getPriceMin() + " AND " + sm.getPriceMax()
-                        + " AND location = " + '"' +  sm.getLocation() + '"' + " AND spots >= " + sm.getMinSpotsLeft()
-                        + " AND (" + activityTypeStrengur + ") AND " + "activityDifficulty BETWEEN " + sm.getActivityDifficultyMin()
-                        + " AND " + sm.getActivityDifficultyMax() + " AND hotelPickUp = " + sm.isHotelPickUp()
-                        + " AND duration BETWEEN " + sm.getDurationMin() + " AND " + sm.getDurationMax();
-                        //+ " AND day BETWEEN " + '"' + sm.getDateFrom() + '"' + " AND " + '"' + sm.getDateTo() + '"';
+                String sqlSkipun;
+                if(sm.getLocation().equals("ANY")){
+                    sqlSkipun = "SELECT * FROM DayTours WHERE price BETWEEN " + sm.getPriceMin() + " AND " + sm.getPriceMax()
+                            + " AND spots >= " + sm.getMinSpotsLeft()
+                            + " AND (" + activityTypeStrengur + ") AND " + "activityDifficulty BETWEEN " + sm.getActivityDifficultyMin()
+                            + " AND " + sm.getActivityDifficultyMax() + " AND hotelPickUp = " + sm.isHotelPickUp()
+                            + " AND duration BETWEEN " + sm.getDurationMin() + " AND " + sm.getDurationMax();
+                }
+                else{
+                    sqlSkipun = "SELECT * FROM DayTours WHERE price BETWEEN " + sm.getPriceMin() + " AND " + sm.getPriceMax()
+                            + " AND location = " + '"' +  sm.getLocation() + '"' + " AND spots >= " + sm.getMinSpotsLeft()
+                            + " AND (" + activityTypeStrengur + ") AND " + "activityDifficulty BETWEEN " + sm.getActivityDifficultyMin()
+                            + " AND " + sm.getActivityDifficultyMax() + " AND hotelPickUp = " + sm.isHotelPickUp()
+                            + " AND duration BETWEEN " + sm.getDurationMin() + " AND " + sm.getDurationMax();
+                }
+
                 /*
                 // GAMLA sqlSkipun
                 String sqlSkipun = "SELECT * FROM DayTours WHERE price BETWEEN " + sm.getPriceMin() + " AND " + sm.getPriceMax()
@@ -139,10 +149,16 @@ public class DB {
                         "(" + '"' + ppl.get(i).getName() + '"' + ", " + '"' + ppl.get(i).getEmail() + '"' + ", " +
                         '"' + ppl.get(i).getPhoneNr() + '"' + ", " + '"' + ppl.get(i).getKennitala() + '"' + ", " +
                         '"' + ppl.get(i).getID() + '"' +  ");";
-                System.out.println(sqlSkipun);
+                //System.out.println(sqlSkipun);
+                statement.execute(sqlSkipun);
+
+                // Fækka plássum eftir í þeirri ferð sem þáttakandi var að skrá sig
+                statement = conn.createStatement();
+                sqlSkipun = "UPDATE DayTours SET spots = spots - 1 WHERE PK = " + ppl.get(i).getID() + ";";
                 statement.execute(sqlSkipun);
 
             }
+
         }
         catch(SQLException e){
             System.err.println(e.getMessage());
@@ -167,7 +183,12 @@ public class DB {
                 statement = conn.createStatement();
                 String sqlSkipun = "DELETE FROM Participants WHERE kennitala = " + '"' + ppl.get(i).getKennitala() + '"'
                         + " AND PK = " + '"' + ppl.get(i).getID() + '"' + ";";
-                System.out.println(sqlSkipun);
+                //System.out.println(sqlSkipun);
+                statement.execute(sqlSkipun);
+
+                // Fjölga plássum eftir í þeirri ferð sem þáttakandi var að skrá sig úr
+                statement = conn.createStatement();
+                sqlSkipun = "UPDATE DayTours SET spots = spots + 1 WHERE PK = " + ppl.get(i).getID() + ";";
                 statement.execute(sqlSkipun);
             }
 

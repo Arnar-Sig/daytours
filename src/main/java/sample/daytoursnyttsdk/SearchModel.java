@@ -95,6 +95,5 @@ public class SearchModel {
         dateFrom = dagsFra;
         dateTo = dagsTil;
         hotelPickUp = hotel;
-
     }
 }
