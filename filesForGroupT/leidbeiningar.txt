@@ -1,0 +1,17 @@
+1. Setja sample möppuna inn í NafnÁverkefni/src/main/java eða þar sem geymt er java í ykkar verkefni.
+Það gæti þurft að opna .java skrárnar og sjá hvort þetta sé að importa rétt, og ef ekki þá leiðrétta það.
+
+2. Bæta við í build.gradle skrá undir dependencies eftirfarandi ef það er ekki þar nú þegar:
+
+    implementation 'org.xerial:sqlite-jdbc:3.36.0.3'
+    implementation 'junit:junit:4.13.1'
+
+þannig að það líti út (plús það sem ykkar verkefni er með):
+
+dependencies {
+    implementation 'org.xerial:sqlite-jdbc:3.36.0.3'
+    implementation 'junit:junit:4.13.1'
+}
+
+3. Keyra
+
