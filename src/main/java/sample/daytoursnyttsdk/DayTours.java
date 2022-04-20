@@ -62,6 +62,14 @@ public class DayTours {
         else Collections.sort(dayTourList);
     }
 
+    public int getDayTourID(int i) {
+        return dayTourList.get(i).getID();
+    }
+
+    public void addParticipant(int i, ArrayList<Participant> p) {
+        dayTourList.get(i).addParticipants(p);
+    }
+
     /**
      * @param sm = SearchModel hlutur sem inniheldur þau gögn sem leita á eftir í gagnagrunni.
      * @return ArrayList<DayTour> fylki af DayTour hlutum sem fundust í gagnagrunni.

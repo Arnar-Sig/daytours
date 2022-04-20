@@ -43,6 +43,14 @@ public class SearchController implements Initializable {
     @FXML
     private TextField fxMaxDuration;
     @FXML
+    private TextField fxPersonName;
+    @FXML
+    private TextField fxPersonPhone;
+    @FXML
+    private TextField fxPersonEmail;
+    @FXML
+    private TextField fxPersonKt;
+    @FXML
     private CheckBox fxHotelPickup;
     @FXML
     private CheckBox fxActivities0;
@@ -120,6 +128,22 @@ public class SearchController implements Initializable {
 
 
 
+    }
+
+    public void bookButton(ActionEvent actionEvent) {
+        int index = fxListView.getSelectionModel().getSelectedIndex();
+        int id = dt.getDayTourID(index);
+
+        String nafn = fxPersonName.getText();
+        String phone = fxPersonPhone.getText();
+        String email = fxPersonEmail.getText();
+        String kt = fxPersonKt.getText();
+
+        Participant person = new Participant(nafn, phone, email, kt, id);
+        ArrayList<Participant> newParticipant = new ArrayList<>();
+        newParticipant.add(person);
+        dt.addParticipant(index,newParticipant);
+        this.updateUI();
     }
 
     public ArrayList<DayTour> searchButton(ActionEvent actionEvent) {
