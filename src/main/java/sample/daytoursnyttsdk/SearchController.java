@@ -68,7 +68,7 @@ public class SearchController implements Initializable {
     static final int DIFFICULTY_MAX = 5;
     static final int DURATION_MAX = 888;
     static final ArrayList<String> defaultActivities = new ArrayList<>(
-            Arrays.asList("Gonguferd", "Hjolaferd")
+            Arrays.asList("Gonguferd", "Hjolaferd", "Sundferd", "Paintball")
     );
 
     @Override
@@ -87,6 +87,7 @@ public class SearchController implements Initializable {
         fxSort.setOnAction((event -> {
             String s = fxSort.getValue().toString();
             dt.updateSort(s);
+            this.updateUI();
         }));
 
         /*
@@ -122,9 +123,7 @@ public class SearchController implements Initializable {
     }
 
     public ArrayList<DayTour> searchButton(ActionEvent actionEvent) {
-        /** Taka út það sem var í ListView fyrir **/
-        ArrayList<String> resetter = new ArrayList<>();
-        fxListView.getItems().setAll(resetter);
+        this.clearUI();
 
         /** Finna út eftir hverju á að raða **/
         String sorting = fxSort.getValue().toString();
@@ -173,7 +172,14 @@ public class SearchController implements Initializable {
         return utkoma;
     }
 
+    private void clearUI() {
+        /** Taka út það sem var í ListView fyrir **/
+        ArrayList<String> resetter = new ArrayList<>();
+        fxListView.getItems().setAll(resetter);
+    }
+
     private void updateUI() {
+        this.clearUI();
         ArrayList<String> tourDescriptions = dt.getDayTourDescriptions();
         for (int i = 0; i < tourDescriptions.size(); i++) {
             fxListView.getItems().add(tourDescriptions.get(i));

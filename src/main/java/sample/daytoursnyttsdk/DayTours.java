@@ -44,7 +44,7 @@ public class DayTours {
         for (int i = 0; i < dayTourList.size(); i++) {
             DayTour dt = dayTourList.get(i);
             String s = "";
-            s = s + dt.getTourName() + " á " + dt.getLocation() + ", " + dt.getDate().toString();
+            s = s + dt.getTourName() + " á " + dt.getLocation() + ", " + dt.getDate().toString() + "   " + dt.getPrice() + " kr.";
             descriptions.add(s);
         }
         return descriptions;
