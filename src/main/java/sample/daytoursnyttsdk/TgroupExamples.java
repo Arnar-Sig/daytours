@@ -7,7 +7,7 @@ public class TgroupExamples {
     public static void main(String[] args) throws ClassNotFoundException {
 
         /** Dæmi 1 - Búa til og fjarlægja þátttakendur úr ferðum **/
-
+/*
         // Aðal DayTours hluturinn þar sem öll gögnin eru geymd
         DayTours dt = new DayTours("Date");
 
@@ -63,10 +63,9 @@ public class TgroupExamples {
             System.out.println(x.getName());
         }
         System.out.println("Plass eftir a sample1 eftir ad bætt vid þátttakendum: " + sample1.getSpotsLeft());
-
+*/
 
         /** Dæmi 2 - Ná í allar ferðir **/
-        /*
         DayTours dt = new DayTours("Date");
         ArrayList<String> activities = new ArrayList<>();
         activities.add("Hjolaferd");
@@ -80,6 +79,5 @@ public class TgroupExamples {
         for(DayTour x: dt.getDayTourList()){
             System.out.println(x.getTourName());
         }
-         */
     }
 }
